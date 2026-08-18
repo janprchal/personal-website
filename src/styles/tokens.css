@@ -1,0 +1,74 @@
+/*
+ * Design tokens — single source of truth for values used across components.
+ *
+ * Source: personal-portfolio/moodboard/style.md in the sibling
+ * ai-design-tool workspace, plus the Figma file itself (page "Portfolio
+ * (redesign)", fileKey 655z8NoAezzUGfOmfTC9zS). Values here were pulled
+ * directly from Figma node properties on 2026-08-18, after fixing 4 real
+ * drift bugs a fresh scan turned up (see style.md's matching revision-
+ * history entry): a missed yellow-token instance, two near-duplicate
+ * off-white section backgrounds, the still-open attribution-band gray, and
+ * a stale Nav Card shadow on "Homepage - Design" that didn't match
+ * "Homepage - FE dev". Don't hand-edit a value here without checking
+ * Figma first — this file should always mirror the corrected design, not
+ * drift from it.
+ */
+
+:root {
+  /* Ink / text */
+  --color-ink: #2F323F;       /* primary text, headings */
+  --color-ink-deep: #40434F;  /* deliberately darker case-study paragraph tier — a real 2-tier system, not a duplicate of --color-ink */
+  --color-muted: #666666;     /* eyebrow labels, card metadata (dates/roles) */
+
+  /* Surfaces */
+  --color-bg: #F7F6F2;        /* warm off-white base — Hero, Testimonials, Projects section backgrounds */
+  --color-surface: #FFFFFF;   /* card fill */
+  --color-attribution-bg: #F4F2EE; /* testimonial attribution band */
+  --color-border: #E0E0DB;    /* structural borders — tag pills, skills-table rows, project-list dividers (NOT the card family, which has no border) */
+
+  /* Brand accents — sourced from janprchal.cz's real CSS, not invented */
+  --color-accent-yellow: #FEDE3C;
+  --color-accent-green: #3FD984;
+  --color-accent-blue: #4353FF;   /* also the focus-ring and link-hover color */
+  --color-accent-blue-active: #2E38B8; /* darker blue for a link's active state */
+
+  /* Radii */
+  --radius-card: 5px;   /* Position / Testimonial / Project cards */
+  --radius-button: 6px;
+  --radius-nav: 10px;   /* confirmed identical on both homepage variants — style.md's original "20px" note was stale, corrected 2026-08-18 */
+  --radius-accent-frame: 8px; /* small decorative frames, browser-chrome mockups in case studies */
+  --radius-pill: 999px; /* tag pills */
+
+  /* Shadows */
+  --shadow-card: 0 8px 14px rgba(0, 0, 0, 0.12);       /* Position/Testimonial/Project card family — spread 2 folded into the blur radius approximation; see style.md for the exact Figma effect */
+  --shadow-nav: 0 4px 20px rgba(47, 50, 63, 0.08);     /* floating nav card */
+  --shadow-subtle: 0 1px 1px rgba(48, 48, 32, 0.18);   /* "Experience - quick" / Currently cards — a different, lighter-weight component, not part of the card family above */
+
+  /* Filled button ("primary CTA") states */
+  --color-btn-fill: var(--color-ink);
+  --color-btn-fill-hover: #14171F;
+  --color-btn-fill-active: #0A0B0F;
+  --shadow-btn: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-btn-hover: 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-btn-active: 0 1px 3px rgba(0, 0, 0, 0.18);
+
+  /* Outline button ("secondary CTA", e.g. "View details") states */
+  --shadow-btn-outline-hover: 0 2px 6px rgba(0, 0, 0, 0.18);
+  --shadow-btn-outline-active: 0 1px 3px rgba(0, 0, 0, 0.14);
+
+  /* Focus ring — required a11y affordance on every interactive element */
+  --focus-ring-color: var(--color-accent-blue);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+
+  /* Text-link underline (hand-drawn rectangle, not native text-decoration — see legacy-site/js/app.js for the sweep-animation mechanic to port) */
+  --link-underline-height: 2px;
+
+  /* Typography */
+  --font-heading: 'Rubik', sans-serif;   /* Black/Bold/SemiBold weights */
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace; /* labels, tags, small metadata only — never a primary typeface */
+
+  /* Layout */
+  --section-padding-x: 240px; /* confirmed identical across all sections after the 2026-08-18 What-and-Where fix (was 215px, a drift) */
+}
