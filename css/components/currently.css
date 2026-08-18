@@ -1,0 +1,48 @@
+.currently-section {
+  padding: 4rem 1.5rem;
+}
+
+.currently-section > header {
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+
+  text-align: center;
+}
+
+.currently {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.currently-item {
+  padding-left: 1.1rem;
+
+  border-left: 3px solid var(--accent-c);
+}
+
+.currently-item h3 {
+  margin: 0 0 0.35rem;
+
+  font-family: var(--sans-serif-font);
+  font-size: 1.1rem;
+}
+
+.currently-item p {
+  margin: 0;
+
+  font-family: var(--serif-font);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.currently-item--past {
+  border-left-color: rgba(34, 34, 34, .2);
+}
+
+.currently-item--past h3 {
+  color: var(--text-c);
+}

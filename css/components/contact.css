@@ -1,0 +1,36 @@
+.contact-footer {
+  padding: 2.5rem 1.5rem;
+
+  border-top: 1px solid rgba(34, 34, 34, .1);
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+
+  max-width: 40rem;
+  margin: 0 auto;
+
+  font-family: var(--serif-font);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.contact-link {
+  color: var(--text-c);
+  text-decoration: none;
+}
+
+.contact-link:hover,
+.contact-link:focus {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-c);
+  text-decoration-thickness: 2px;
+}
+
+.contact-sep {
+  color: rgba(34, 34, 34, .3);
+}

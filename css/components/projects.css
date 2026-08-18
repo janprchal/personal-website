@@ -1,0 +1,158 @@
+.projects-section {
+  padding: 4rem 1.5rem 6rem;
+
+  background-color: var(--body-bg);
+}
+
+.projects-section > header {
+  max-width: 40rem;
+  margin: 0 auto 3rem;
+
+  text-align: center;
+}
+
+.projects-section > header p {
+  font-family: var(--serif-font);
+  line-height: 1.6;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Every card is split into 3 vertical parts: thumbnail, text body, buttons.
+   The body grows to fill the card, so buttons always sit flush with the bottom. */
+.project {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background-color: #fff;
+  box-shadow: 5px 5px 0px 6px rgba(34, 34, 34, .1);
+  translate: 0 0;
+  transition: all .18s linear;
+
+  line-height: 1.8;
+}
+
+.project:hover {
+  translate: 3px 3px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.project-thumb {
+  position: relative;
+  flex: none;
+
+  overflow: hidden;
+}
+
+.project-img {
+  display: block;
+  width: 100%;
+  height: 12rem;
+
+  object-fit: cover;
+
+  transition: filter .24s linear .18s;
+}
+
+.project:hover .project-img {
+  filter: blur(7px);
+}
+
+.project-thumb--default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 12rem;
+
+  background-color: var(--accent-c);
+}
+
+.project-thumb-logo {
+  width: 3rem;
+  height: 3rem;
+
+  opacity: 0.45;
+}
+
+.project-button {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  translate: -50% 0%;
+
+  opacity: 0;
+
+  transition: opacity .18s linear .32s;
+}
+
+.project:hover .project-button {
+  opacity: 1;
+}
+
+.project-body {
+  flex: 1 1 auto;
+
+  padding: 1.5rem 1.6rem 0;
+}
+
+.project-body h3 {
+  margin: 0 0 0.5rem;
+
+  font-family: var(--sans-serif-font);
+  font-size: 1.3rem;
+}
+
+.project-body p {
+  margin: 0;
+
+  font-family: var(--serif-font);
+  font-size: 0.95rem;
+}
+
+.project-note {
+  margin-top: 1rem;
+  padding-left: 0.9rem;
+
+  border-left: 3px solid var(--accent-c);
+
+  font-family: var(--serif-font);
+  font-size: 0.9rem;
+}
+
+.project-note strong {
+  font-family: var(--sans-serif-font);
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding: 1.25rem 1.6rem 1.6rem;
+}
+
+.project-links .button {
+  min-width: auto;
+  min-height: auto;
+  padding: 0.5rem 1rem;
+
+  font-size: 0.85rem;
+}
+
+@media screen and (min-width: 1680px) {
+  .projects {
+    max-width: 1600px;
+  }
+}

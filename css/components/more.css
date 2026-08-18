@@ -1,0 +1,78 @@
+:root {
+  --scroll-down-w: 30px; 
+  --scroll-fill-c: #2F323F;
+}
+
+.more {
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  text-decoration: none;
+}
+
+.more-text {
+  display: inline-block;
+  margin-right: 1rem;
+  line-height: 1;
+
+  text-decoration: none;
+  font-family: var(--sans-serif-font);
+  color: var(--dark-c);
+}
+
+.more-arrows {
+  height: 40px;
+  margin-top: 10px;
+}
+
+.more-arrow {
+  position: relative;
+  display: block;
+  width: 18px;
+  margin: 0 auto;
+  fill: var(--dark-c);
+  
+  animation: scroll-arrows 1.2s linear infinite;
+}
+
+.more-arrow path {
+  stroke: var(--dark-c);
+  stroke-width: 40px;
+}
+
+.more-arrow--1 {
+  animation-delay: 0s;
+}
+
+.more-arrow--2 {
+  top: -10px;
+  animation-delay: 0.2s;
+}
+
+.more-arrow--3 {
+  top: -20px;
+  animation-delay: 0.4s;
+}
+
+@keyframes scroll-arrows {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

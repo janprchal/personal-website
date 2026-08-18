@@ -1,0 +1,13 @@
+.tac {
+  text-align: center;
+}
+
+.mobile-and-more {
+  display: block;
+}
+
+@media only screen and (min-width: 1025px) {
+  .mobile-and-more {
+    display: none;
+  }
+}

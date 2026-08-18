@@ -1,0 +1,10 @@
+h1, h2 {
+  margin-bottom: 0;
+  font-family: var(--sans-serif-font);
+}
+
+h2 {
+  font-size: 4rem;
+  font-weight: 600;
+  font-family: var(--serif-font);
+}
