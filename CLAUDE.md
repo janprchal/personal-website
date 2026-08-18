@@ -35,23 +35,34 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
   design tokens (colors, spacing, radii, shadows), ported from
   `moodboard/style.md`'s already-consolidated values. Bind components to
   these tokens rather than hardcoding values.
+- `src/scripts/hero-animation.js` — the GSAP hero-entrance animation, ported
+  from `legacy-site/js/app.js`'s `hiAnimation()`. See the file's own header
+  comment for exactly what changed (underline is now a real rectangle
+  animated via `scaleX`, not a `background-size` sweep; the rotating-title
+  carousel was dropped since the new Hero has one static headline; GSAP is
+  an npm dependency now, not a CDN `<script>` tag). Not wired into a page
+  yet — expects `Hero.astro` (not yet built) to place the
+  `data-hero-*` attribute hooks documented in its header comment.
+- `public/logo.svg` — the logo mark, copied as-is from
+  `legacy-site/img/logo.svg`.
 - `legacy-site/` — the previous plain HTML/CSS/JS site, kept for
-  reference/extraction only, not served. In particular:
-  - `legacy-site/img/logo.svg` — the logo mark, reused as-is in the new site.
-  - `legacy-site/js/app.js` — the GSAP hero-entrance animation
-    (`hiAnimation()`, timeline-label composition via `tweenFromTo`) and the
-    `.background-gradient` underline-sweep technique. Port the *mechanic*
-    into the new site (as an npm-installed GSAP dependency, not a CDN
-    `<script>` tag), retargeting colors/sizes to the new design tokens —
-    don't copy the file verbatim, the visual design has since changed
-    (new accent usage, new 2px colored underline for links, etc.).
-  - `legacy-site/js/vendor/splitTextJs.js` — only needed if a hero heading
-    still requires char/word-level splitting; check against the new design
-    first.
-  - Do not delete `legacy-site/` until the rewrite fully replaces it.
+  reference/extraction only, not served. `splitTextJs.js` (vendored there)
+  was confirmed unused (loaded but never invoked) and was not ported. Do
+  not delete `legacy-site/` until the rewrite fully replaces it.
 
 ## Conventions
 
+- **Font usage**: `--font-heading` (Rubik) for headings — matches both the
+  Figma design and the original `legacy-site` (which already used Rubik for
+  its own `<h1>`), so no conflict there. `--font-mono` (JetBrains Mono) is
+  reserved for genuinely mono-ish micro-content — labels, tags, small
+  metadata, badge chips (e.g. the Hero's "Hello! / I'm Jan Prchal" badge) —
+  never full body copy, even where the Figma file currently applies it more
+  broadly. Known instance: the Hero bio paragraph ("Ten-plus years
+  building...") is set to JetBrains Mono 16px in Figma — when building
+  `Hero.astro`, use `--font-body` (Inter) for that paragraph instead per
+  this rule, rather than copying the Figma value as-is. Worth flagging back
+  upstream if the Figma file should be corrected too, to avoid future drift.
 - No UI framework (React/Vue/etc.) — plain Astro components, matching the
   companion blog project's approach (see below).
 - Plain CSS with custom properties for tokens — no preprocessor, following
