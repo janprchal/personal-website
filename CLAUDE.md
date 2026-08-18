@@ -49,7 +49,22 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
   yet — expects `Hero.astro` (not yet built) to place the
   `data-hero-*` attribute hooks documented in its header comment.
 - `public/logo.svg` — the logo mark, copied as-is from
-  `legacy-site/img/logo.svg`.
+  `legacy-site/img/logo.svg` (deliberately NOT re-exported from Figma node
+  `4:18` — that raw export carries the documented oversized 720x720
+  safe-zone canvas around the visible glyph; the legacy copy is already
+  correctly cropped).
+- `public/logos/` — company logos: `buildingminds.svg`, `enrian.svg`
+  (exported from Figma), `envisog_no_text.svg` (user-supplied, verified
+  against Figma's own EnviSoG vector fill colors). Used by `PositionCard`
+  and `ProjectCard`'s `logo`/`image` props.
+- `public/images/projects/` — the two featured ProjectCard screenshots
+  (`buildingminds.png`, `envisog.png`), exported directly from each
+  project card's `Picture` frame in Figma (its composed export, not the
+  larger raw source image).
+- `public/images/case-studies/{buildingminds,envisog}/browser-*.png` — the
+  5 "Browser card" mockup screenshots per case study, exported from Figma
+  nodes `180:6/15/24/33/42` (BM) and `223:20/26/32/38/44` (EnviSoG). Not
+  yet wired into a page — for the case-study build.
 - `legacy-site/` — the previous plain HTML/CSS/JS site, kept for
   reference/extraction only, not served. `splitTextJs.js` (vendored there)
   was confirmed unused (loaded but never invoked) and was not ported. Do
