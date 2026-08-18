@@ -67,7 +67,35 @@
   /* Typography */
   --font-heading: 'Rubik', sans-serif;   /* Black/Bold/SemiBold weights */
   --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace; /* labels, tags, small metadata only — never a primary typeface */
+  --font-mono: 'JetBrains Mono', monospace; /* labels, tags, small metadata only — never a primary typeface, incl. NOT the Hero bio paragraph even though Figma currently sets it in mono */
+
+  /*
+   * Type scale — pulled directly from Figma's actual usage across all 4
+   * frames (2026-08-18), after rounding the two fractional sizes it
+   * turned up (14.5px, 13.5px -> both 14px) back to the scale below.
+   * 14 distinct sizes across 3 families is intentional editorial richness
+   * (each family serves a distinct role — Rubik for display/headings,
+   * Inter for UI/body, JetBrains Mono for labels/eyebrows/metadata), not
+   * drift — don't consolidate further without checking Figma first.
+   */
+  --text-2xs: 0.625rem;  /* 10px — smallest mono tags */
+  --text-xs: 0.6875rem;  /* 11px — mono dates/badge */
+  --text-sm: 0.75rem;    /* 12px — mono eyebrow labels, small meta */
+  --text-base-sm: 0.8125rem; /* 13px — tech-stack tags, footer meta, mono section eyebrows */
+  --text-base: 0.875rem; /* 14px — nav items, button labels, body copy (small), mono skill tags */
+  --text-md: 1rem;       /* 16px — body copy (larger), Hero bio */
+  --text-lg: 1.25rem;    /* 20px — position/card titles, footer CTA */
+  --text-xl: 1.375rem;   /* 22px — project card titles, case-study nav links */
+  --text-2xl: 1.5rem;    /* 24px — numbered project index, stat numbers */
+  --text-3xl: 1.875rem;  /* 30px — case-study subheads */
+  --text-4xl: 2rem;      /* 32px — section headers */
+  --text-5xl: 2.75rem;   /* 44px — case-study title */
+  --text-6xl: 3.75rem;   /* 60px — decorative testimonial quote marks */
+  --text-hero: 4rem;     /* 64px — Hero headline */
+
+  --leading-tight: 1;
+  --leading-snug: 1.08;   /* Hero headline */
+  --leading-normal: 1.5;  /* body copy */
 
   /* Layout */
   --section-padding-x: 240px; /* confirmed identical across all sections after the 2026-08-18 What-and-Where fix (was 215px, a drift) */

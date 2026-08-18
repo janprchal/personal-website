@@ -1,0 +1,81 @@
+---
+/*
+ * Filled + outline button primitive. All 4 states (default/hover/focus/
+ * active) match the Figma "Interactive States Reference" card (node
+ * 274:60) exactly — see tokens.css for the source values.
+ *
+ * variant: 'filled' (primary CTA, e.g. "My resume", "Get in touch") or
+ *   'outline' (secondary CTA, e.g. "View details").
+ * href: renders an <a>; omit to render a <button type="button">.
+ */
+interface Props {
+  variant?: 'filled' | 'outline';
+  href?: string;
+  target?: string;
+  class?: string;
+}
+
+const { variant = 'filled', href, target, class: className } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`, className]}
+  href={href}
+  target={target}
+  rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+  type={href ? undefined : 'button'}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: var(--radius-button);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  }
+
+  .btn--filled {
+    padding: 8px 12px;
+    background: var(--color-btn-fill);
+    color: var(--color-surface);
+    box-shadow: var(--shadow-btn);
+  }
+  .btn--filled:hover {
+    background: var(--color-btn-fill-hover);
+    box-shadow: var(--shadow-btn-hover);
+  }
+  .btn--filled:active {
+    background: var(--color-btn-fill-active);
+    box-shadow: var(--shadow-btn-active);
+  }
+
+  .btn--outline {
+    padding: 9px 16px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    border: 1px solid var(--color-ink);
+    box-shadow: none;
+  }
+  .btn--outline:hover {
+    background: var(--color-ink);
+    color: var(--color-surface);
+    border-color: transparent;
+    box-shadow: var(--shadow-btn-outline-hover);
+  }
+  .btn--outline:active {
+    background: var(--color-btn-fill-active);
+    color: var(--color-surface);
+    border-color: transparent;
+    box-shadow: var(--shadow-btn-outline-active);
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+// Temporary sandbox for checking primitive components against the Figma
+// Interactive States Reference card while the real pages don't exist yet.
+// Delete this route once Header/Footer/homepage are built (step 4/5).
+import '../../styles/global.css';
+import Button from '../../components/Button.astro';
+import Link from '../../components/Link.astro';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Primitives sandbox</title>
+	</head>
+	<body style="padding: 40px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start;">
+		<div style="display: flex; gap: 12px;">
+			<Button variant="filled">My resume</Button>
+			<Button variant="outline">View details</Button>
+		</div>
+		<div style="display: flex; gap: 24px;">
+			<Link href="#skills">Skills</Link>
+			<Link href="#projects">Projects</Link>
+			<Link href="#experience">Experience</Link>
+			<Link href="#contact">Contact</Link>
+		</div>
+	</body>
+</html>

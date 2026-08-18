@@ -1,0 +1,68 @@
+---
+/*
+ * Text link primitive — nav items, footer links, "Visit X ↗". All 4 states
+ * match the Figma "Interactive States Reference" card (node 274:60): the
+ * underline is a hand-drawn bar (not native text-decoration, which can't
+ * control thickness/color independently), revealed via `transform: scaleX`
+ * so it's GPU-accelerated rather than animating width.
+ */
+interface Props {
+  href: string;
+  target?: string;
+  class?: string;
+}
+
+const { href, target, class: className } = Astro.props;
+---
+
+<a
+  class:list={['link', className]}
+  href={href}
+  target={target}
+  rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+>
+  <span class="link__label"><slot /></span>
+  <span class="link__underline" aria-hidden="true"></span>
+</a>
+
+<style>
+  .link {
+    position: relative;
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-ink);
+    transition: color 0.15s ease;
+  }
+
+  .link__underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: var(--link-underline-height);
+    background: var(--color-accent-blue);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.2s ease, background-color 0.15s ease;
+  }
+
+  .link:hover,
+  .link:focus-visible {
+    color: var(--color-accent-blue);
+  }
+  .link:hover .link__underline,
+  .link:focus-visible .link__underline {
+    transform: scaleX(1);
+    background: var(--color-accent-blue);
+  }
+
+  .link:active {
+    color: var(--color-accent-blue-active);
+  }
+  .link:active .link__underline {
+    transform: scaleX(1);
+    background: var(--color-accent-blue-active);
+  }
+</style>
