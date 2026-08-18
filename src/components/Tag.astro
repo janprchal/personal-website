@@ -1,0 +1,43 @@
+---
+// Small pill tag — technology/skill labels. Figma: radius 999, 1px
+// var(--color-border), Inter Regular 13px, padding 6px 12px, gap 6px.
+// dotColor: optional brand-color dot (e.g. Angular red #DD0031, TypeScript
+// blue #3178C6) — used on project-card technology tags, confirmed against
+// Figma's actual per-tech dot fills rather than guessed.
+interface Props {
+  dotColor?: string;
+}
+
+const { dotColor } = Astro.props;
+---
+
+<span class="tag">
+  <span
+    class="tag__dot"
+    style={dotColor ? `background: ${dotColor}` : 'display: none'}
+    aria-hidden="true"
+  ></span>
+  <slot />
+</span>
+
+<style>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: var(--text-base-sm);
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+
+  .tag__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+</style>

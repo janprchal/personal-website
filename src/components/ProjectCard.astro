@@ -1,0 +1,112 @@
+---
+/*
+ * Featured project card (image + title/subtitle + description + tech tags
+ * + "View details" button) — distinct from the smaller numbered project
+ * index rows elsewhere on the homepage. `image` asset extraction from
+ * Figma is a follow-up; this renders whatever src is passed.
+ */
+import Card from './Card.astro';
+import Tag from './Tag.astro';
+import Button from './Button.astro';
+
+interface Technology {
+  name: string;
+  dotColor?: string;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  description: string;
+  technologies: Technology[];
+  href: string;
+  image: string;
+  imageAlt: string;
+}
+
+const { title, subtitle, description, technologies, href, image, imageAlt } = Astro.props;
+---
+
+<Card class="project-card">
+  <img class="project-card__image" src={image} alt={imageAlt} loading="lazy" />
+  <div class="project-card__content">
+    <div class="project-card__head">
+      <div class="project-card__info">
+        <h3>{title}</h3>
+        <span class="project-card__subtitle">{subtitle}</span>
+      </div>
+    </div>
+    <p class="project-card__description">{description}</p>
+    <div class="project-card__technologies">
+      <span class="project-card__eyebrow">TECHNOLOGIES</span>
+      <div class="project-card__tags">
+        {technologies.map((tech) => <Tag dotColor={tech.dotColor}>{tech.name}</Tag>)}
+      </div>
+    </div>
+    <Button variant="outline" href={href}>View details</Button>
+  </div>
+</Card>
+
+<style>
+  .project-card__image {
+    width: 100%;
+    aspect-ratio: 468 / 199;
+    object-fit: cover;
+  }
+
+  .project-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px 32px 32px;
+  }
+
+  .project-card__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .project-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .project-card__info h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .project-card__subtitle {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .project-card__description {
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-deep);
+  }
+
+  .project-card__technologies {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .project-card__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .project-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>

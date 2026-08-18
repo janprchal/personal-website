@@ -1,0 +1,95 @@
+---
+import Card from './Card.astro';
+import Avatar from './Avatar.astro';
+
+interface Props {
+  quote: string;
+  name: string;
+  role: string;
+  avatarInitials: string;
+  avatarAccent: 'yellow' | 'green' | 'blue';
+  quoteMarkAccent?: 'yellow' | 'green' | 'blue';
+}
+
+const {
+  quote, name, role, avatarInitials, avatarAccent,
+  quoteMarkAccent = avatarAccent,
+} = Astro.props;
+
+const quoteMarkColor: Record<string, string> = {
+  yellow: 'var(--color-accent-yellow)',
+  green: 'var(--color-accent-green)',
+  blue: 'var(--color-accent-blue)',
+};
+---
+
+<Card class="testimonial-card">
+  <div class="testimonial-card__body">
+    <span class="testimonial-card__mark" style={`color: ${quoteMarkColor[quoteMarkAccent]}`} aria-hidden="true">&ldquo;</span>
+    <p class="testimonial-card__quote">{quote}</p>
+  </div>
+  <div class="testimonial-card__attribution">
+    <Avatar initials={avatarInitials} accent={avatarAccent} size={36} />
+    <div class="testimonial-card__name">
+      <span class="testimonial-card__name-text">{name}</span>
+      <span class="testimonial-card__role">{role}</span>
+    </div>
+  </div>
+</Card>
+
+<style>
+  .testimonial-card :global(.card__inner) {
+    padding: 4px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 24px 4px;
+    flex: 1;
+  }
+
+  .testimonial-card__mark {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: var(--text-6xl);
+    line-height: var(--leading-tight);
+  }
+
+  .testimonial-card__quote {
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+    color: var(--color-ink);
+  }
+
+  .testimonial-card__attribution {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: var(--color-attribution-bg);
+  }
+
+  .testimonial-card__name {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card__name-text {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: var(--text-base-sm);
+    color: var(--color-ink);
+  }
+
+  .testimonial-card__role {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+</style>

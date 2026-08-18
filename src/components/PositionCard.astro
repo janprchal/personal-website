@@ -1,0 +1,99 @@
+---
+import Card from './Card.astro';
+
+/*
+ * Confirmed against Figma directly (node 118:3172): the attribution slot
+ * shows the company's logo mark, not an initials avatar — the
+ * ellipse+initials nodes are present but `visible: false`, a hidden
+ * alternate state, same pattern as the Hero's unused headline text node.
+ * `description` is trusted HTML (Figma has real bold spans on key terms,
+ * e.g. "<strong>Angular (v18+)</strong>") — callers must supply markup,
+ * not attacker-controlled input.
+ */
+interface Props {
+  role: string;
+  dates: string;
+  description: string;
+  company: string;
+  logo: string;
+  logoAlt: string;
+}
+
+const { role, dates, description, company, logo, logoAlt } = Astro.props;
+---
+
+<Card class="position-card">
+  <div class="position-card__body">
+    <div class="position-card__head">
+      <h3>{role}</h3>
+      <span class="position-card__dates">{dates}</span>
+    </div>
+    <p class="position-card__description" set:html={description} />
+  </div>
+  <div class="position-card__attribution">
+    <img class="position-card__logo" src={logo} alt={logoAlt} width="32" height="32" />
+    <span class="position-card__company">{company}</span>
+  </div>
+</Card>
+
+<style>
+  .position-card :global(.card__inner) {
+    padding: 4px;
+  }
+
+  .position-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 24px 4px;
+  }
+
+  .position-card__head {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .position-card__head h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .position-card__dates {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .position-card__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-ink);
+    white-space: pre-line;
+  }
+  .position-card__description :global(strong) {
+    font-weight: 700;
+  }
+
+  .position-card__attribution {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: var(--color-attribution-bg);
+  }
+
+  .position-card__logo {
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .position-card__company {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: var(--text-base-sm);
+    color: var(--color-ink);
+  }
+</style>

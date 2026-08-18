@@ -1,0 +1,35 @@
+---
+/*
+ * Shared card shell — Position/Testimonial/Project cards all use this.
+ * Mirrors the Figma structure deliberately: an outer "shadow shell" (just
+ * the shadow, no fill/overflow-clip) wrapping an inner "clip shell" (fill +
+ * radius + overflow:hidden + the real content). Same reason the Figma file
+ * itself is split this way — see CLAUDE.md's `clipsContent` gotcha in the
+ * ai-design-tool workspace: a single element with both a shadow AND
+ * `overflow: hidden` clips its own shadow at its own edge.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={['card', className]}>
+  <div class="card__inner">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .card {
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card__inner {
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+  }
+</style>

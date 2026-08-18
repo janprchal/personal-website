@@ -5,6 +5,9 @@
 import '../../styles/global.css';
 import Button from '../../components/Button.astro';
 import Link from '../../components/Link.astro';
+import PositionCard from '../../components/PositionCard.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 ---
 
 <html lang="en">
@@ -12,7 +15,7 @@ import Link from '../../components/Link.astro';
 		<meta charset="utf-8" />
 		<title>Primitives sandbox</title>
 	</head>
-	<body style="padding: 40px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start;">
+	<body style="padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: flex-start;">
 		<div style="display: flex; gap: 12px;">
 			<Button variant="filled">My resume</Button>
 			<Button variant="outline">View details</Button>
@@ -22,6 +25,42 @@ import Link from '../../components/Link.astro';
 			<Link href="#projects">Projects</Link>
 			<Link href="#experience">Experience</Link>
 			<Link href="#contact">Contact</Link>
+		</div>
+		<div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
+			<div style="width: 468px;">
+				<PositionCard
+					role="Frontend Developer"
+					dates="2024 - Present"
+					description={"Developed frontend features using <strong>Angular (v18+)</strong> with <strong>TypeScript</strong>, including <strong>standalone components</strong> and <strong>signals.</strong>  Main focus on <strong>implementing UI/UX designs</strong>, with partial involvement in the design process itself. \nTook part in code reviews and agile sprints"}
+					company="BuildingMinds"
+					logo="/logos/buildingminds.svg"
+					logoAlt="BuildingMinds"
+				/>
+			</div>
+			<div style="width: 520px;">
+				<TestimonialCard
+					quote="Jan pleasantly surprised me with his proactive approach — he always understood what the client actually needed. He quickly became the lead coder behind most of our division's web projects. I can recommend him without hesitation."
+					name="Zdeněk Dubnický"
+					role="Digital Transformation & PM Consultant"
+					avatarInitials="ZD"
+					avatarAccent="yellow"
+				/>
+			</div>
+			<div style="width: 468px;">
+				<ProjectCard
+					title="BuildingMinds"
+					subtitle="BuildingMinds"
+					description="A SaaS platform for real estate asset managers — portfolio tracking, ESG reporting, and retrofit planning in one place."
+					technologies={[
+						{ name: "Angular (v18+)", dotColor: "#DD0031" },
+						{ name: "TypeScript", dotColor: "#3178C6" },
+						{ name: "Design Systems", dotColor: "#14B8A6" },
+					]}
+					href="#"
+					image="https://picsum.photos/seed/buildingminds/936/398"
+					imageAlt=""
+				/>
+			</div>
 		</div>
 	</body>
 </html>

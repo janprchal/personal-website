@@ -28,9 +28,14 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
   study routes for BuildingMinds and EnviSoG once built.
 - `src/layouts/` — shared page shells (`BaseLayout.astro`,
   `CaseStudyLayout.astro` once built).
-- `src/components/` — reusable pieces: buttons/links (with hover/focus/
-  active states — see the Figma "Interactive States Reference" card),
-  Position/Testimonial/Project cards, Header/Nav, Footer.
+- `src/components/` — `Button.astro`, `Link.astro` (states verified against
+  the Figma "Interactive States Reference" card), `Card.astro` (shared
+  shadow-shell/clip-shell wrapper — see Gotchas), `Tag.astro`, `Avatar.astro`,
+  `PositionCard.astro`, `TestimonialCard.astro`, `ProjectCard.astro`. Still
+  needed: Header/Nav, Footer, Hero.
+- `src/pages/preview/primitives.astro` — a live sandbox for checking
+  components against Figma before real pages exist. Delete once
+  Header/Footer/homepage are built.
 - `src/styles/tokens.css` (once created) — the single source of truth for
   design tokens (colors, spacing, radii, shadows), ported from
   `moodboard/style.md`'s already-consolidated values. Bind components to
@@ -70,12 +75,36 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
 - Git repo, initialized specifically for this rewrite (the previous static
   site was never version-controlled).
 
+## Gotchas
+
+- **Astro's scoped-CSS pruning drops rules for classes that only appear
+  inside a conditional JSX-like expression** — `{condition && <span
+  class="foo">}` — even though the class legitimately renders when the
+  condition is true. Hit this for real building `Tag.astro`'s optional
+  brand-color dot: the `.tag__dot` rule was silently stripped from the
+  compiled stylesheet (confirmed via `document.styleSheets`, not just a
+  visual miss), so the dot existed in the DOM with the right background
+  color but `width: 0`. Fix: always render the element unconditionally and
+  toggle it with an inline `style` (e.g. `display: none`) instead of
+  conditionally omitting the tag — that keeps the class in the template's
+  static analysis. Check any future conditionally-rendered element's
+  computed styles (not just a screenshot) if a fill/color reads right but
+  the box seems to collapse.
+- **Verify Figma's "obvious" element is actually the visible one before
+  building from it.** Hit this twice already: the Hero's headline text node
+  and a Position card's initials-avatar both looked like real content in a
+  property dump, but were `visible: false` — the actually-rendered content
+  (a hidden alt headline; a company logo image) was a sibling node. A
+  screenshot of the specific node (not just reading `characters`/fills)
+  caught both. Don't assume the first text/fill match found by `findAll` is
+  what's on screen.
+
 ## Related project: the blog
 
 `/Users/hony/dev/astro-blog` (GitHub: `janprchal/blog`) is a separate,
 already-live Astro project (content collections, MDX posts) with its own
 brand identity (Nunito font, purple/blue palette) that does **not** match
-this site's confirmed design (Rubik/Roboto Slab,
+this site's confirmed design (Rubik/Inter/JetBrains Mono,
 `#fede3c`/`#4353FF`/`#3fd984`). It is not merged into this project yet.
 When that merge happens, it likely means importing its `src/content/blog`
 collection and blog routes into this project and re-theming them to this

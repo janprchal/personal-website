@@ -1,0 +1,48 @@
+---
+/*
+ * Circular avatar with initials, used in Position/Testimonial card
+ * attribution bands. `accent` cycles through the site's 3 brand colors
+ * (see style.md) — text contrast is hardcoded per accent rather than
+ * computed, matching a real bug fix from the design phase: initials must
+ * NOT be hardcoded to ink color regardless of background (illegible on the
+ * saturated blue). Blue -> white text; yellow/green -> dark ink text.
+ */
+interface Props {
+  initials: string;
+  accent: 'yellow' | 'green' | 'blue';
+  size?: number;
+}
+
+const { initials, accent, size = 32 } = Astro.props;
+
+const bg: Record<string, string> = {
+  yellow: 'var(--color-accent-yellow)',
+  green: 'var(--color-accent-green)',
+  blue: 'var(--color-accent-blue)',
+};
+const textColor = accent === 'blue' ? 'var(--color-surface)' : 'var(--color-ink)';
+---
+
+<span
+  class="avatar"
+  style={`--avatar-size: ${size}px; --avatar-bg: ${bg[accent]}; --avatar-text: ${textColor};`}
+>
+  {initials}
+</span>
+
+<style>
+  .avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    border-radius: 50%;
+    background: var(--avatar-bg);
+    color: var(--avatar-text);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 12px;
+  }
+</style>
