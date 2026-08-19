@@ -24,24 +24,26 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
 
 ## Architecture
 
-- `src/pages/` — one file per route: `index.astro` (homepage), plus case
-  study routes for BuildingMinds and EnviSoG once built.
+- `src/pages/index.astro` — the homepage, fully assembled: Hero →
+  What-and-Where (Skills + Positions) → Testimonials → Featured Projects →
+  Footer. Case-study routes for BuildingMinds and EnviSoG still needed.
 - `src/layouts/` — shared page shells (`BaseLayout.astro`,
-  `CaseStudyLayout.astro` once built).
+  `CaseStudyLayout.astro`) — not yet built; only needed once the
+  case-study pages start, since the homepage doesn't need one.
 - `src/components/` — `Button.astro`, `Link.astro` (states verified against
   the Figma "Interactive States Reference" card), `Card.astro` (shared
   shadow-shell/clip-shell wrapper — see Gotchas), `Tag.astro`, `Avatar.astro`,
   `PositionCard.astro`, `TestimonialCard.astro`, `ProjectCard.astro`,
-  `Header.astro`, `Footer.astro`, `Hero.astro` (wires up
-  `src/scripts/hero-animation.js`, verified against Figma incl. the
-  entrance animation firing with no console errors). Still needed:
-  homepage assembly (Skills, Positions grid, numbered Projects index,
-  Testimonials bento grid) and both case-study pages. Footer's
-  mail/GitHub/LinkedIn/CV icons are generic outline SVGs, not
-  pixel-extracted from Figma.
-- `src/pages/preview/primitives.astro` — a live sandbox for checking
-  components against Figma before real pages exist. Delete once
-  Header/Footer/homepage are built.
+  `Header.astro`, `Footer.astro`, `Hero.astro`, `Section.astro` (generic
+  eyebrow+heading+960px-column wrapper, reused by the 3 homepage sections).
+- `src/components/sections/` — page-specific content: `WhatAndWhereSection`,
+  `TestimonialsSection`, `FeaturedProjectsSection`. The 4th Figma section —
+  a numbered project index (janprchal.cz Design System / Konference /
+  EnviSoG / Homeandstem) — is deliberately NOT built: it's `visible: false`
+  in the live Figma file (a 2026-08-11 decision, effectively superseded by
+  the featured-cards Projects section built later), confirmed with the user
+  before skipping it. If it ever gets re-enabled in Figma, build it as
+  `ProjectsIndexSection`.
 - `src/styles/tokens.css` (once created) — the single source of truth for
   design tokens (colors, spacing, radii, shadows), ported from
   `moodboard/style.md`'s already-consolidated values. Bind components to
@@ -119,6 +121,21 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
   screenshot of the specific node (not just reading `characters`/fills)
   caught both. Don't assume the first text/fill match found by `findAll` is
   what's on screen.
+- **`get_screenshot` can return a degenerate 1x1 image for a node that's
+  actually `visible: false`** (or has a hidden ancestor) — not an error, no
+  exception thrown, just a technically-valid but useless image. This is how
+  the numbered-project-index section (see Architecture) was discovered to
+  be hidden — screenshots of it and its children kept coming back 1x1
+  (`node.screenshot()` too) while direct property reads worked fine and
+  returned real content. If a screenshot comes back suspiciously tiny,
+  check `visible` up the ancestor chain before assuming a tool glitch.
+- **`loading="lazy"` on `<img>` can fail to trigger in Playwright's
+  automated screenshots** even for images within the visible viewport —
+  hit this on `ProjectCard`'s images (`img.complete` stayed `false`
+  indefinitely; the file itself served fine via direct `curl`). Removed
+  `loading="lazy"` there since the page only has 2 such images anyway. If
+  it recurs elsewhere, verify via `img.complete`/`naturalWidth` in
+  `browser_evaluate`, not just a screenshot looking blank.
 
 ## Related project: the blog
 

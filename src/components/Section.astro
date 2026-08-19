@@ -1,0 +1,66 @@
+---
+/*
+ * Generic section wrapper — eyebrow + heading + content, 960px content
+ * column, 96px vertical / 240px horizontal padding at desktop width
+ * (confirmed identical across all 4 sections in Figma after the 2026-08-18
+ * padding-consistency fix). Heading weight: 3 of 4 section headings in
+ * Figma use Rubik SemiBold, one ("A few things I've built.") uses Bold —
+ * a minor, unflagged inconsistency; this component defaults to the
+ * majority (SemiBold) rather than replicating the outlier.
+ */
+interface Props {
+  eyebrow: string;
+  heading: string;
+  id?: string;
+}
+
+const { eyebrow, heading, id } = Astro.props;
+---
+
+<section class="section" id={id}>
+  <div class="section__content">
+    <header class="section__header">
+      <span class="section__eyebrow">{eyebrow}</span>
+      <h2 class="section__heading">{heading}</h2>
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: 96px 16px;
+  }
+
+  .section--alt {
+    background: var(--color-bg);
+  }
+
+  .section__content {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .section__header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .section__eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base-sm);
+    color: var(--color-muted);
+  }
+
+  .section__heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-4xl);
+    color: var(--color-ink);
+  }
+</style>

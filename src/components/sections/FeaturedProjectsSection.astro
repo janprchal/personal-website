@@ -1,0 +1,47 @@
+---
+import Section from '../Section.astro';
+import ProjectCard from '../ProjectCard.astro';
+---
+
+<Section eyebrow="PROJECTS" heading="Some of my work" id="projects">
+  <div class="featured-projects">
+    <ProjectCard
+      title="BuildingMinds"
+      subtitle="BuildingMinds"
+      description="A SaaS platform for real estate asset managers — portfolio tracking, ESG reporting, and retrofit planning in one place."
+      technologies={[
+        { name: 'Angular (v18+)', dotColor: '#DD0031' },
+        { name: 'TypeScript', dotColor: '#3178C6' },
+        { name: 'Design Systems', dotColor: '#14B8A6' },
+      ]}
+      href="/projects/buildingminds"
+      image="/images/projects/buildingminds.png"
+      imageAlt="BuildingMinds dashboard screenshot"
+    />
+    <ProjectCard
+      title="Carbon Calculator"
+      subtitle="Envisog s.r.o."
+      description="A carbon-footprint calculator that guides companies through GHG Protocol and ISO 14064 emissions reporting — from energy use to company vehicles."
+      technologies={[
+        { name: 'Vue.js', dotColor: '#4FC08D' },
+        { name: 'TypeScript', dotColor: '#3178C6' },
+        { name: 'Design Systems', dotColor: '#14B8A6' },
+      ]}
+      href="/projects/envisog"
+      image="/images/projects/envisog.png"
+      imageAlt="EnviSoG carbon calculator screenshot"
+    />
+  </div>
+</Section>
+
+<style>
+  .featured-projects {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .featured-projects > :global(*) {
+    flex: 1;
+    min-width: 320px;
+  }
+</style>

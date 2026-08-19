@@ -1,0 +1,81 @@
+---
+import Section from '../Section.astro';
+import TestimonialCard from '../TestimonialCard.astro';
+---
+
+<Section eyebrow="TESTIMONIALS" heading="What they said about me.">
+  <div class="testimonials-grid">
+    <div class="testimonials-row">
+      <div class="testimonials-cell testimonials-cell--wide">
+        <TestimonialCard
+          quote="Jan pleasantly surprised me with his proactive approach — he always understood what the client actually needed. He quickly became the lead coder behind most of our division's web projects. I can recommend him without hesitation."
+          name="Zdeněk Dubnický"
+          role="Digital Transformation & PM Consultant"
+          avatarInitials="ZD"
+          avatarAccent="yellow"
+          quoteMarkAccent="green"
+        />
+      </div>
+      <div class="testimonials-cell testimonials-cell--narrow">
+        <TestimonialCard
+          quote="Jan is a good team member and good co-worker. He likes new technologies and challenging tasks, is oriented on excellent results, and — as a person — very cheerful."
+          name="Victor Espinoza"
+          role="Frontend Developer, BuildingMinds"
+          avatarInitials="VE"
+          avatarAccent="green"
+          quoteMarkAccent="green"
+        />
+      </div>
+    </div>
+    <div class="testimonials-row">
+      <div class="testimonials-cell testimonials-cell--narrow">
+        <TestimonialCard
+          quote="From the start, Jan consistently delivered the best results — not just as a coder, but in graphic and UI design too. He became a real pillar of the team."
+          name="Miloš Babický"
+          role="Java Developer"
+          avatarInitials="MB"
+          avatarAccent="blue"
+          quoteMarkAccent="green"
+        />
+      </div>
+      <div class="testimonials-cell testimonials-cell--wide">
+        <TestimonialCard
+          quote="Jan is, without a doubt, a master of his specialization. His attention to detail is unmatched — he turns complex designs into pixel-perfect, responsive, high-performance UIs."
+          name="Michal Šajdík"
+          role="Angular / React Developer"
+          avatarInitials="MŠ"
+          avatarAccent="yellow"
+          quoteMarkAccent="green"
+        />
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .testimonials-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .testimonials-row {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .testimonials-cell {
+    display: flex;
+  }
+  .testimonials-cell > :global(*) {
+    width: 100%;
+  }
+
+  .testimonials-cell--wide {
+    flex: 520;
+  }
+  .testimonials-cell--narrow {
+    flex: 416;
+  }
+</style>

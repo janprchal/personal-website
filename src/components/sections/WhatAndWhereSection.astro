@@ -1,0 +1,170 @@
+---
+import Section from '../Section.astro';
+import Tag from '../Tag.astro';
+import PositionCard from '../PositionCard.astro';
+
+const skillGroups = [
+  {
+    label: 'Languages',
+    tags: [
+      { name: 'JavaScript', dotColor: '#F7DF1E' },
+      { name: 'TypeScript', dotColor: '#3178C6' },
+    ],
+  },
+  {
+    label: 'Frontend',
+    tags: [
+      { name: 'Vue.js', dotColor: '#4FC08D' },
+      { name: 'Nuxt', dotColor: '#00DC82' },
+      { name: 'Pinia', dotColor: '#FFD359' },
+      { name: 'Angular', dotColor: '#DD0031' },
+      { name: 'Angular Material', dotColor: '#3F51B5' },
+      { name: 'HTML', dotColor: '#E34F26' },
+      { name: 'Sass', dotColor: '#CC6699' },
+      { name: 'SCSS', dotColor: '#CC6699' },
+      { name: 'BEM', dotColor: '#6366F1' },
+      { name: 'ITCSS', dotColor: '#F43F5E' },
+      { name: 'GSAP', dotColor: '#0AE448' },
+    ],
+  },
+  {
+    label: 'Design',
+    tags: [
+      { name: 'Figma', dotColor: '#A259FF' },
+      { name: 'Design Systems', dotColor: '#14B8A6' },
+      { name: 'Components', dotColor: '#3B82F6' },
+      { name: 'Prototyping', dotColor: '#F59E0B' },
+      { name: 'Storybook', dotColor: '#FF4785' },
+    ],
+  },
+  {
+    label: 'Tooling',
+    tags: [
+      { name: 'Git', dotColor: '#F05032' },
+      { name: 'Claude Code', dotColor: '#CC785C' },
+    ],
+  },
+];
+---
+
+<Section eyebrow="SKILLS & LATEST POSITIONS" heading="What I worked with & where" id="skills">
+  <div class="wnw">
+    <div class="wnw__skills">
+      {skillGroups.map((group) => (
+        <div class="wnw__skill-group">
+          <span class="wnw__skill-label">{group.label}</span>
+          <div class="wnw__skill-tags">
+            {group.tags.map((tag) => <Tag dotColor={tag.dotColor}>{tag.name}</Tag>)}
+          </div>
+        </div>
+      ))}
+
+      <div class="wnw__find-more">
+        <span class="wnw__skill-label">Find more</span>
+        <div class="wnw__social">
+          <a class="wnw__social-btn wnw__social-btn--github" href="https://github.com/janprchal" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.48c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.17-.89-1.17-.72-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.13 0 0 .67-.22 2.2.83a7.6 7.6 0 0 1 4 0c1.53-1.05 2.2-.83 2.2-.83.44 1.11.16 1.93.08 2.13.52.56.83 1.27.83 2.15 0 3.08-1.87 3.75-3.66 3.95.29.25.54.74.54 1.5v2.22c0 .21.15.46.55.38A8 8 0 0 0 8 0Z" fill="currentColor"/>
+            </svg>
+            GitHub
+          </a>
+          <a class="wnw__social-btn wnw__social-btn--linkedin" href="https://linkedin.com/in/prchaljan" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3.5 5.5h2v7h-2v-7Zm1-3a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM7.5 5.5h1.9v1h.03c.27-.5.92-1 1.9-1 2 0 2.4 1.3 2.4 3v4h-2v-3.5c0-.85 0-1.9-1.15-1.9-1.15 0-1.33.9-1.33 1.85v3.55h-2v-7Z" fill="currentColor"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wnw__positions" id="experience">
+      <PositionCard
+        role="Frontend Developer"
+        dates="2024 - Present"
+        description={"Developed frontend features using <strong>Angular (v18+)</strong> with <strong>TypeScript</strong>, including <strong>standalone components</strong> and <strong>signals.</strong>  Main focus on <strong>implementing UI/UX designs</strong>, with partial involvement in the design process itself. \nTook part in code reviews and agile sprints"}
+        company="BuildingMinds"
+        logo="/logos/buildingminds.svg"
+        logoAlt="BuildingMinds"
+      />
+      <PositionCard
+        role="Frontend Designer"
+        dates="2016 - 2024"
+        description="Worked on multiple projects for clients across Tech, Banking, Telco, and Insurance, including Zurich, Nedbank, T-Mobile, Molo Finance and more.  Used Vue.js, Figma, SCSS, and JavaScript to design and implement responsive web interfaces."
+        company="Enrian Partners"
+        logo="/logos/enrian.svg"
+        logoAlt="Enrian Partners"
+      />
+    </div>
+  </div>
+</Section>
+
+<style>
+  .wnw {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .wnw__skills,
+  .wnw__positions {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .wnw__skill-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .wnw__skill-label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base);
+    color: var(--color-ink);
+  }
+
+  .wnw__skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .wnw__find-more {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 32px;
+  }
+
+  .wnw__social {
+    display: flex;
+    gap: 12px;
+  }
+
+  .wnw__social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: var(--radius-button);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--text-base);
+    color: var(--color-surface);
+    transition: opacity 0.15s ease;
+  }
+  .wnw__social-btn:hover {
+    opacity: 0.85;
+  }
+  .wnw__social-btn--github {
+    background: var(--color-ink);
+  }
+  .wnw__social-btn--linkedin {
+    background: #0a66c2;
+  }
+</style>
