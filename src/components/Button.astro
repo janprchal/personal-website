@@ -6,21 +6,25 @@
  *
  * variant: 'filled' (primary CTA, e.g. "My resume", "Get in touch") or
  *   'outline' (secondary CTA, e.g. "View details").
+ * size: 'small' (nav/card buttons, padding 8px 12px) or 'large' (Hero's
+ *   "View projects"/"Get in touch", padding 12px 24px) — confirmed as two
+ *   real distinct sizes in Figma, not a drift.
  * href: renders an <a>; omit to render a <button type="button">.
  */
 interface Props {
   variant?: 'filled' | 'outline';
+  size?: 'small' | 'large';
   href?: string;
   target?: string;
   class?: string;
 }
 
-const { variant = 'filled', href, target, class: className } = Astro.props;
+const { variant = 'filled', size = 'small', href, target, class: className } = Astro.props;
 const Tag = href ? 'a' : 'button';
 ---
 
 <Tag
-  class:list={['btn', `btn--${variant}`, className]}
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, className]}
   href={href}
   target={target}
   rel={target === '_blank' ? 'noopener noreferrer' : undefined}
@@ -44,8 +48,14 @@ const Tag = href ? 'a' : 'button';
     transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
   }
 
+  /* Small outline (9px 16px, e.g. "View details") measures 1px/4px off
+     small filled (8px 12px, e.g. "My resume") in Figma — two distinct
+     components, not drift, so kept distinct rather than unified. */
+  .btn--filled.btn--small { padding: 8px 12px; }
+  .btn--outline.btn--small { padding: 9px 16px; }
+  .btn--large { padding: 12px 24px; }
+
   .btn--filled {
-    padding: 8px 12px;
     background: var(--color-btn-fill);
     color: var(--color-surface);
     box-shadow: var(--shadow-btn);
@@ -60,7 +70,6 @@ const Tag = href ? 'a' : 'button';
   }
 
   .btn--outline {
-    padding: 9px 16px;
     background: var(--color-surface);
     color: var(--color-ink);
     border: 1px solid var(--color-ink);
