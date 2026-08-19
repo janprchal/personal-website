@@ -103,6 +103,20 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
 
 ## Conventions
 
+- **Homepage sections alternate white/beige backgrounds** (a real Figma
+  "zebra" pattern, not a mistake): Hero beige (+ grid texture, confined to
+  Hero only — nowhere else), What-and-Where white, Testimonials beige,
+  Featured Projects white, Footer dark. `Section.astro`'s `background`
+  prop (`'white' | 'beige'`) controls this — don't add a new Section
+  instance without setting it deliberately. Case-study pages are white
+  throughout (`CaseStudyLayout` sets it on `<body>`).
+- **`Button.astro` accepts a `style` prop and forwards it to the rendered
+  element** — needed for `--btn-outline-color` (tints an outline button's
+  border/text/hover-fill without a new variant, used by case studies for
+  their per-project accent CTA). Forgetting to explicitly declare and
+  forward `style` (or any other prop) is an easy way to silently lose it —
+  Astro components don't auto-forward arbitrary props to their rendered
+  markup the way plain HTML elements do.
 - **Font usage**: `--font-heading` (Rubik) for headings — matches both the
   Figma design and the original `legacy-site` (which already used Rubik for
   its own `<h1>`), so no conflict there. `--font-mono` (JetBrains Mono) is

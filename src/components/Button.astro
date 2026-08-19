@@ -17,9 +17,10 @@ interface Props {
   href?: string;
   target?: string;
   class?: string;
+  style?: string;
 }
 
-const { variant = 'filled', size = 'small', href, target, class: className } = Astro.props;
+const { variant = 'filled', size = 'small', href, target, class: className, style } = Astro.props;
 const Tag = href ? 'a' : 'button';
 ---
 
@@ -29,6 +30,7 @@ const Tag = href ? 'a' : 'button';
   target={target}
   rel={target === '_blank' ? 'noopener noreferrer' : undefined}
   type={href ? undefined : 'button'}
+  style={style}
 >
   <slot />
 </Tag>
@@ -69,20 +71,28 @@ const Tag = href ? 'a' : 'button';
     box-shadow: var(--shadow-btn-active);
   }
 
+  /*
+   * --btn-outline-color lets a caller tint the border/text (and hover
+   * fill) without a new variant — used by the case-study pages for their
+   * "Visit X" buttons, which are this same outline treatment but in each
+   * project's own accent color (confirmed in Figma: same padding/radius/
+   * no-shadow-at-rest as the ink-colored outline button, just a different
+   * border+text color). Pass e.g. `style="--btn-outline-color: var(--cs-accent)"`.
+   */
   .btn--outline {
     background: var(--color-surface);
-    color: var(--color-ink);
-    border: 1px solid var(--color-ink);
+    color: var(--btn-outline-color, var(--color-ink));
+    border: 1px solid var(--btn-outline-color, var(--color-ink));
     box-shadow: none;
   }
   .btn--outline:hover {
-    background: var(--color-ink);
+    background: var(--btn-outline-color, var(--color-ink));
     color: var(--color-surface);
     border-color: transparent;
     box-shadow: var(--shadow-btn-outline-hover);
   }
   .btn--outline:active {
-    background: var(--color-btn-fill-active);
+    background: var(--btn-outline-color-active, var(--color-btn-fill-active));
     color: var(--color-surface);
     border-color: transparent;
     box-shadow: var(--shadow-btn-outline-active);

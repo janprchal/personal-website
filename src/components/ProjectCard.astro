@@ -64,6 +64,17 @@ const { title, subtitle, description, technologies, href, image, imageAlt, logo,
     padding: 28px 32px 32px;
   }
 
+  /*
+   * Extra breathing room above the CTA specifically — Figma's own
+   * itemSpacing is a uniform 16px between every child here, but the user
+   * asked for a bigger gap before the button specifically; matches the
+   * :global()-must-wrap-the-whole-selector gotcha since Button.astro is a
+   * child component (see CLAUDE.md Gotchas).
+   */
+  :global(.project-card__content > .btn) {
+    margin-top: 8px;
+  }
+
   .project-card__head {
     display: flex;
     align-items: center;

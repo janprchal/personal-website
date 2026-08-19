@@ -68,8 +68,8 @@ const technologies = [
         </RoleBlock>
 
         <div class="cs-buttons">
-          <a class="cs-btn-accent" href="#" target="_blank" rel="noopener noreferrer">Visit envisog &#8599;</a>
-          <Button variant="outline" size="large" href="#contact">Get in touch</Button>
+          <Button variant="outline" size="large" href="#" target="_blank" style="--btn-outline-color: var(--cs-accent);">Visit envisog &#8599;</Button>
+          <Button variant="outline" size="large" href="/#contact">Get in touch</Button>
         </div>
       </div>
     </div>
@@ -150,26 +150,5 @@ const technologies = [
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-  }
-
-  .cs-btn-accent {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 24px;
-    border-radius: var(--radius-button);
-    background: var(--color-surface);
-    color: var(--cs-accent);
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--text-base);
-    box-shadow: var(--shadow-card);
-    transition: box-shadow 0.15s ease;
-  }
-  .cs-btn-accent:hover {
-    box-shadow: var(--shadow-btn-outline-hover);
-  }
-  .cs-btn-accent:active {
-    box-shadow: var(--shadow-btn-outline-active);
   }
 </style>
