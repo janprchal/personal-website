@@ -5,13 +5,14 @@ import Button from './Button.astro';
 /*
  * "Contact" was dropped (was → #contact, i.e. the Footer) — it isn't a
  * distinct destination, just the page's own natural end, and "Get in
- * touch" buttons already cover that intent throughout the page. Confirmed
- * with the user 2026-08-19.
+ * touch" buttons already cover that intent throughout the page. "Skills"
+ * and "Experience" were merged into one item — both pointed into the same
+ * visual section ("What I worked with & where"), just at different scroll
+ * depths. Both changes confirmed with the user 2026-08-19.
  */
 const navItems = [
-  { label: 'Skills', href: '#skills' },
+  { label: 'Skills & Experience', href: '#skills' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
 ];
 ---
 
