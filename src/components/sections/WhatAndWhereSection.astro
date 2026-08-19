@@ -149,17 +149,21 @@ const skillGroups = [
   .wnw__social-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    min-width: 121px;
     padding: 12px 20px;
     border-radius: var(--radius-button);
     font-family: var(--font-body);
     font-weight: 500;
     font-size: var(--text-base);
     color: var(--color-surface);
-    transition: opacity 0.15s ease;
+    box-shadow: var(--shadow-btn);
+    transition: opacity 0.15s ease, box-shadow 0.15s ease;
   }
   .wnw__social-btn:hover {
     opacity: 0.85;
+    box-shadow: var(--shadow-btn-hover);
   }
   .wnw__social-btn--github {
     background: var(--color-ink);

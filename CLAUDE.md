@@ -71,8 +71,13 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
   from `legacy-site/js/app.js`'s `hiAnimation()`, wired into `Hero.astro`.
   See the file's own header comment for exactly what changed (underline is
   now a real rectangle animated via `scaleX`, not a `background-size`
-  sweep; the rotating-title carousel was dropped since the new Hero has one
-  static headline; GSAP is an npm dependency now, not a CDN `<script>` tag).
+  sweep; GSAP is an npm dependency now, not a CDN `<script>` tag). The
+  rotating-role carousel ("Frontend Developer" ↔ "Designer", yellow ↔
+  green underline) IS ported, not dropped — an earlier note here claimed
+  it was cut based on one homepage duplicate showing only one role, but the
+  other duplicate independently shows the other role as its own live
+  state; confirmed with the user 2026-08-19 that both are real rotation
+  states, not evidence of a cut feature.
 - `public/logo.svg` — the logo mark, copied as-is from
   `legacy-site/img/logo.svg` (deliberately NOT re-exported from Figma node
   `4:18` — that raw export carries the documented oversized 720x720
@@ -165,6 +170,40 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
   `loading="lazy"` there since the page only has 2 such images anyway. If
   it recurs elsewhere, verify via `img.complete`/`naturalWidth` in
   `browser_evaluate`, not just a screenshot looking blank.
+- **Astro's scoped-CSS attribute belongs to whichever component's own
+  template rendered the DOM node — not whatever component passed in a
+  `class` prop.** `.parentClass :global(.childInternalClass) { ... }`
+  written in a PARENT component's `<style>` compiles to
+  `.parentClass[data-astro-cid-PARENT] .childInternalClass`, which can
+  never match when `.parentClass` was applied as a passed-through `class`
+  prop onto a CHILD component's own root element — that element carries
+  the CHILD's scope attribute, not the parent's, so the compound selector
+  never matches anything. Hit this for real on every card component
+  (`PositionCard`, `TestimonialCard`) trying to style `Card.astro`'s
+  internal `.card__inner` from outside, and on both case-study pages
+  trying to size `Gallery.astro`'s root via `.cs-columns__content >
+  .gallery`. Confirmed via `getComputedStyle` showing `padding: 0` despite
+  the rule existing verbatim in the compiled stylesheet, and via
+  `element.attributes` showing the scope attribute actually present
+  belonged to the child component. **Fix: wrap the ENTIRE compound
+  selector in `:global()`** — `:global(.parentClass .childInternalClass)`
+  — not just the child half. This emits a plain unscoped selector with no
+  attribute requirements, so it matches regardless of which component's
+  scope owns which node. Same root cause explained several visually
+  distinct symptoms at once here: missing gaps, wrong-looking attribution
+  colors (actually correct color, just missing the padding inset that
+  gives it visual context), and testimonial cards not bottom-aligning
+  (`height: 100%` on `.card__inner` silently never applied either).
+- **GSAP: a trailing `.to({}, { duration: X })` tween on an empty plain
+  object — a common "just wait" idiom — did not reliably fire its
+  completion in this project's GSAP version**, silently stalling an entire
+  timeline (and anything chained off its `onComplete`) forever after the
+  real tweens finished playing. Hit this building the Hero's role-rotation
+  carousel: the entrance timeline visually completed (opacity/transform
+  reached final values) but `onComplete` never ran, so the carousel never
+  started. Fix: don't hold via an empty-object tween at all — use a plain
+  `setTimeout` sized off `tl.duration() * 1000 + holdMs` instead. That
+  doesn't depend on the timeline's own completion event firing.
 
 ## Related project: the blog
 

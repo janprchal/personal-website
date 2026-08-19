@@ -22,15 +22,18 @@ interface Props {
   href: string;
   image: string;
   imageAlt: string;
+  logo: string;
+  logoAlt: string;
 }
 
-const { title, subtitle, description, technologies, href, image, imageAlt } = Astro.props;
+const { title, subtitle, description, technologies, href, image, imageAlt, logo, logoAlt } = Astro.props;
 ---
 
 <Card class="project-card">
   <img class="project-card__image" src={image} alt={imageAlt} />
   <div class="project-card__content">
     <div class="project-card__head">
+      <img class="project-card__logo" src={logo} alt={logoAlt} />
       <div class="project-card__info">
         <h3>{title}</h3>
         <span class="project-card__subtitle">{subtitle}</span>
@@ -65,6 +68,13 @@ const { title, subtitle, description, technologies, href, image, imageAlt } = As
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+
+  .project-card__logo {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    object-fit: contain;
   }
 
   .project-card__info {

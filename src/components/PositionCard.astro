@@ -37,8 +37,24 @@ const { role, dates, description, company, logo, logoAlt } = Astro.props;
 </Card>
 
 <style>
-  .position-card :global(.card__inner) {
+  /*
+   * Must wrap the WHOLE selector in :global(), not just the right side.
+   * `.card__inner` is rendered by Card.astro's own template, so it carries
+   * Card's Astro scope attribute, not PositionCard's — a selector like
+   * `.position-card :global(.card__inner)` compiles to
+   * `.position-card[data-astro-cid-positioncard] .card__inner`, which can
+   * never match because that scope attribute is never present on the
+   * `.card` root (it has Card's own scope attribute instead). Confirmed via
+   * computed styles: padding stayed 0 despite this rule existing verbatim
+   * in the compiled stylesheet. Same root cause explained the missing
+   * body-to-attribution gap AND (for TestimonialCard) the broken
+   * height:100%/flex column that was supposed to bottom-align attribution.
+   */
+  :global(.position-card .card__inner) {
     padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .position-card__body {

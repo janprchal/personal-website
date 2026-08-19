@@ -132,7 +132,9 @@ const technologies = [
     align-items: flex-start;
   }
 
-  .cs-columns__content > :global(.gallery) {
+  /* :global() must wrap the whole selector — see PositionCard.astro's
+     comment on the same Astro scoping gotcha. */
+  :global(.cs-columns__content > .gallery) {
     flex: 558;
     min-width: 0;
   }

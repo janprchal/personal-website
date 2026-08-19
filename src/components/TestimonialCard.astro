@@ -38,11 +38,14 @@ const quoteMarkColor: Record<string, string> = {
 </Card>
 
 <style>
-  .testimonial-card :global(.card__inner) {
+  /* See PositionCard.astro for why this must be :global() on the WHOLE
+     selector, not `.testimonial-card :global(.card__inner)`. */
+  :global(.testimonial-card .card__inner) {
     padding: 4px;
     height: 100%;
     display: flex;
     flex-direction: column;
+    gap: 16px;
   }
 
   .testimonial-card__body {
@@ -58,6 +61,17 @@ const quoteMarkColor: Record<string, string> = {
     font-weight: 400;
     font-size: var(--text-6xl);
     line-height: var(--leading-tight);
+    /*
+     * A "“" glyph at 60px sits near the top of its line box — measured
+     * via canvas pixel-ink scan: visible ink occupies roughly the top third
+     * of the box, leaving ~37px of empty space below the ink before the
+     * box itself ends. That empty space stacked on top of the intended
+     * 12px gap (from .testimonial-card__body's flex `gap`) is what read as
+     * "too much spacing". Pulling the box's bottom edge up with a negative
+     * margin (in em, so it scales if font-size ever changes) collapses
+     * that unused space while keeping the visible glyph the same size.
+     */
+    margin-bottom: -0.6em;
   }
 
   .testimonial-card__quote {
