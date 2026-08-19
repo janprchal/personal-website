@@ -1,0 +1,64 @@
+---
+import Link from './Link.astro';
+import Button from './Button.astro';
+
+const navItems = [
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<header class="header">
+  <div class="header__card">
+    <div class="header__inner">
+      <a href="/" class="header__logo" aria-label="Jan Prchal — home" data-hero-logo>
+        <img src="/logo.svg" alt="" width="36" height="36" />
+      </a>
+      <nav class="header__nav" aria-label="Primary">
+        {navItems.map((item) => <Link href={item.href}>{item.label}</Link>)}
+      </nav>
+      <Button variant="filled" href="/resume.pdf" target="_blank">My resume</Button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 16px;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    padding: 0 16px;
+  }
+
+  .header__card {
+    width: 100%;
+    max-width: 960px;
+    border-radius: var(--radius-nav);
+    box-shadow: var(--shadow-nav);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--color-surface);
+    border-radius: var(--radius-nav);
+    padding: 8px 16px;
+  }
+
+  .header__logo {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+</style>

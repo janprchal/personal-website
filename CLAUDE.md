@@ -31,8 +31,11 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
 - `src/components/` — `Button.astro`, `Link.astro` (states verified against
   the Figma "Interactive States Reference" card), `Card.astro` (shared
   shadow-shell/clip-shell wrapper — see Gotchas), `Tag.astro`, `Avatar.astro`,
-  `PositionCard.astro`, `TestimonialCard.astro`, `ProjectCard.astro`. Still
-  needed: Header/Nav, Footer, Hero.
+  `PositionCard.astro`, `TestimonialCard.astro`, `ProjectCard.astro`,
+  `Header.astro`, `Footer.astro`. Still needed: `Hero.astro` (wire up
+  `src/scripts/hero-animation.js`), then homepage/case-study assembly.
+  Footer's mail/GitHub/LinkedIn/CV icons are generic outline SVGs, not
+  pixel-extracted from Figma.
 - `src/pages/preview/primitives.astro` — a live sandbox for checking
   components against Figma before real pages exist. Delete once
   Header/Footer/homepage are built.
