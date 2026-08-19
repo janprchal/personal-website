@@ -1,0 +1,26 @@
+---
+interface Props {
+  images: { src: string; alt: string }[];
+}
+const { images } = Astro.props;
+---
+
+<div class="gallery">
+  {images.map((img) => (
+    <img class="gallery__image" src={img.src} alt={img.alt} />
+  ))}
+</div>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .gallery__image {
+    width: 100%;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+</style>

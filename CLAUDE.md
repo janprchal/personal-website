@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Jan Prchal's personal portfolio site — being rewritten from a single static
-HTML page into a multi-page Astro site (homepage + two case-study pages:
-BuildingMinds, EnviSoG). The rewrite implements a design that was produced
+Jan Prchal's personal portfolio site — rewritten from a single static HTML
+page into a multi-page Astro site: homepage + two case-study pages
+(BuildingMinds, EnviSoG). The rewrite implements a design that was produced
 in Figma via a separate Claude Code workspace at
 `/Users/hony/dev/ai-design-tool` (project folder `personal-portfolio/`
 there). That repo's `personal-portfolio/moodboard/style.md` is the
@@ -14,7 +14,9 @@ authoritative design-decision log (colors, spacing, shadows, typography,
 interactive-state treatments) — check it before inventing a value here.
 The actual Figma file (page "Portfolio (redesign)") is the pixel source of
 truth; pull exact values via the Figma MCP server rather than eyeballing
-screenshots.
+screenshots. All 3 pages are built and verified against Figma (see
+Architecture) — remaining work is polish/QA (responsive breakpoints below
+1440px haven't been checked yet) and content follow-ups noted inline below.
 
 ## Running / previewing
 
@@ -24,19 +26,35 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
 
 ## Architecture
 
-- `src/pages/index.astro` — the homepage, fully assembled: Hero →
-  What-and-Where (Skills + Positions) → Testimonials → Featured Projects →
-  Footer. Case-study routes for BuildingMinds and EnviSoG still needed.
-- `src/layouts/` — shared page shells (`BaseLayout.astro`,
-  `CaseStudyLayout.astro`) — not yet built; only needed once the
-  case-study pages start, since the homepage doesn't need one.
+- `src/pages/index.astro` — the homepage: Hero → What-and-Where (Skills +
+  Positions) → Testimonials → Featured Projects → Footer.
+- `src/pages/projects/{buildingminds,envisog}.astro` — the two case-study
+  pages, both on `CaseStudyLayout`. Each project has its own accent color
+  (BuildingMinds `#FF3D00`, EnviSoG `#3538CD` — both confirmed in Figma,
+  not the portfolio brand palette) threaded through as the `--cs-accent`
+  CSS custom property, used by `RoleBlock`'s eyebrow marker, the case-study
+  "My Role" point left-borders, the stat numbers, and the accent CTA
+  button. BuildingMinds has an extra "Beyond this app" stats block (50+
+  components / 3 apps / 5 teams) and a 2-card testimonial pull-quote
+  section that EnviSoG doesn't — both confirmed against Figma, not an
+  oversight.
+- `src/layouts/CaseStudyLayout.astro` — shared case-study shell: sets
+  `--cs-accent`, renders `CaseStudyHero`, a slot for page content, the
+  "Back to home" / "Next project" cross-link nav, and `Footer`. Case
+  studies use a *different*, simpler header than the homepage
+  (`CaseStudyHero.astro`: JP logo + "CASE STUDY" label + project logo/title
+  + role/date — no Skills/Projects/Experience/Contact nav, no "My resume"
+  button) — don't reuse `Header.astro` here.
 - `src/components/` — `Button.astro`, `Link.astro` (states verified against
   the Figma "Interactive States Reference" card), `Card.astro` (shared
   shadow-shell/clip-shell wrapper — see Gotchas), `Tag.astro`, `Avatar.astro`,
   `PositionCard.astro`, `TestimonialCard.astro`, `ProjectCard.astro`,
   `Header.astro`, `Footer.astro`, `Hero.astro`, `Section.astro` (generic
-  eyebrow+heading+960px-column wrapper, reused by the 3 homepage sections).
-- `src/components/sections/` — page-specific content: `WhatAndWhereSection`,
+  eyebrow+heading+960px-column wrapper, used by the 3 homepage sections),
+  `CaseStudyHero.astro`, `RoleBlock.astro` (case-study "PROJECT"/"MY
+  ROLE"/"TECHNOLOGIES" sub-sections), `Gallery.astro` (vertical stack of
+  case-study screenshots).
+- `src/components/sections/` — homepage-only content: `WhatAndWhereSection`,
   `TestimonialsSection`, `FeaturedProjectsSection`. The 4th Figma section —
   a numbered project index (janprchal.cz Design System / Konference /
   EnviSoG / Homeandstem) — is deliberately NOT built: it's `visible: false`
@@ -44,35 +62,35 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
   the featured-cards Projects section built later), confirmed with the user
   before skipping it. If it ever gets re-enabled in Figma, build it as
   `ProjectsIndexSection`.
-- `src/styles/tokens.css` (once created) — the single source of truth for
-  design tokens (colors, spacing, radii, shadows), ported from
-  `moodboard/style.md`'s already-consolidated values. Bind components to
-  these tokens rather than hardcoding values.
+- `src/styles/tokens.css` — the single source of truth for design tokens
+  (colors, spacing, radii, shadows, type scale), ported from
+  `moodboard/style.md`'s already-consolidated values plus values pulled
+  directly from Figma node properties. Bind components to these tokens
+  rather than hardcoding values.
 - `src/scripts/hero-animation.js` — the GSAP hero-entrance animation, ported
-  from `legacy-site/js/app.js`'s `hiAnimation()`. See the file's own header
-  comment for exactly what changed (underline is now a real rectangle
-  animated via `scaleX`, not a `background-size` sweep; the rotating-title
-  carousel was dropped since the new Hero has one static headline; GSAP is
-  an npm dependency now, not a CDN `<script>` tag). Not wired into a page
-  yet — expects `Hero.astro` (not yet built) to place the
-  `data-hero-*` attribute hooks documented in its header comment.
+  from `legacy-site/js/app.js`'s `hiAnimation()`, wired into `Hero.astro`.
+  See the file's own header comment for exactly what changed (underline is
+  now a real rectangle animated via `scaleX`, not a `background-size`
+  sweep; the rotating-title carousel was dropped since the new Hero has one
+  static headline; GSAP is an npm dependency now, not a CDN `<script>` tag).
 - `public/logo.svg` — the logo mark, copied as-is from
   `legacy-site/img/logo.svg` (deliberately NOT re-exported from Figma node
   `4:18` — that raw export carries the documented oversized 720x720
   safe-zone canvas around the visible glyph; the legacy copy is already
-  correctly cropped).
+  correctly cropped). `public/logo-white.svg` is the same mark recolored
+  for the dark Footer.
 - `public/logos/` — company logos: `buildingminds.svg`, `enrian.svg`
   (exported from Figma), `envisog_no_text.svg` (user-supplied, verified
   against Figma's own EnviSoG vector fill colors). Used by `PositionCard`
-  and `ProjectCard`'s `logo`/`image` props.
+  and `CaseStudyHero`'s `logo`/`projectLogo` props.
 - `public/images/projects/` — the two featured ProjectCard screenshots
   (`buildingminds.png`, `envisog.png`), exported directly from each
   project card's `Picture` frame in Figma (its composed export, not the
   larger raw source image).
 - `public/images/case-studies/{buildingminds,envisog}/browser-*.png` — the
   5 "Browser card" mockup screenshots per case study, exported from Figma
-  nodes `180:6/15/24/33/42` (BM) and `223:20/26/32/38/44` (EnviSoG). Not
-  yet wired into a page — for the case-study build.
+  nodes `180:6/15/24/33/42` (BM) and `223:20/26/32/38/44` (EnviSoG), wired
+  into each case study's `Gallery`.
 - `legacy-site/` — the previous plain HTML/CSS/JS site, kept for
   reference/extraction only, not served. `splitTextJs.js` (vendored there)
   was confirmed unused (loaded but never invoked) and was not ported. Do
@@ -97,6 +115,17 @@ Standard Astro project — `npm run dev` (or `astro dev --background` /
   the previous site's convention and keeping the dependency footprint small.
 - Git repo, initialized specifically for this rewrite (the previous static
   site was never version-controlled).
+
+## Known placeholders / follow-ups
+
+- `Header`'s "My resume" button and `Footer`'s "CV" link both point to
+  `/resume.pdf`, which doesn't exist yet — needs the real file dropped into
+  `public/`.
+- Case-study "Visit buildingminds ↗" / "Visit envisog ↗" buttons link to
+  `https://buildingminds.com` and `#` respectively — the EnviSoG one needs
+  a real URL.
+- Responsive behavior below the ~1440px design width hasn't been checked
+  yet — everything so far has been verified at desktop width only.
 
 ## Gotchas
 

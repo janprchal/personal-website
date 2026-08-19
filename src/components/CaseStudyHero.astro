@@ -1,0 +1,80 @@
+---
+/*
+ * Case-study hero — a different, simpler header than the homepage's
+ * Header.astro (no Skills/Projects/Experience/Contact nav, no "My resume"
+ * button). Confirmed via Figma: case studies use "Logo Lockup + CASE
+ * STUDY label + project logo/title + role/date" only.
+ */
+interface Props {
+  projectLogo: string;
+  projectLogoAlt: string;
+  projectTitle: string;
+  roleDate: string;
+}
+
+const { projectLogo, projectLogoAlt, projectTitle, roleDate } = Astro.props;
+---
+
+<header class="cs-hero">
+  <div class="cs-hero__content">
+    <a href="/" class="cs-hero__logo" aria-label="Jan Prchal — home">
+      <img src="/logo.svg" alt="" width="36" height="36" />
+    </a>
+    <span class="cs-hero__eyebrow">CASE STUDY</span>
+    <div class="cs-hero__title-lockup">
+      <img src={projectLogo} alt={projectLogoAlt} class="cs-hero__project-logo" />
+      <h1 class="cs-hero__title">{projectTitle}</h1>
+    </div>
+    <p class="cs-hero__role-date">{roleDate}</p>
+  </div>
+</header>
+
+<style>
+  .cs-hero {
+    padding: 40px 16px;
+  }
+
+  .cs-hero__content {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .cs-hero__logo {
+    display: flex;
+  }
+
+  .cs-hero__eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base-sm);
+    color: var(--color-muted);
+  }
+
+  .cs-hero__title-lockup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cs-hero__project-logo {
+    height: 48px;
+    width: auto;
+  }
+
+  .cs-hero__title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-5xl);
+    color: var(--color-ink);
+  }
+
+  .cs-hero__role-date {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    color: var(--color-muted);
+  }
+</style>

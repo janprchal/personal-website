@@ -1,0 +1,65 @@
+---
+/*
+ * "PROJECT" / "MY ROLE" / "TECHNOLOGIES" / "BEYOND THIS APP" blocks in the
+ * case-study "My Role" column. The small square eyebrow marker uses
+ * `--cs-accent`, set per-page by CaseStudyLayout (BuildingMinds: #FF3D00,
+ * EnviSoG: #3538CD — each project's own confirmed accent, not the
+ * portfolio brand palette).
+ */
+interface Props {
+  eyebrow: string;
+  heading: string;
+}
+
+const { eyebrow, heading } = Astro.props;
+---
+
+<div class="role-block">
+  <div class="role-block__header">
+    <div class="role-block__eyebrow">
+      <span class="role-block__marker" aria-hidden="true"></span>
+      {eyebrow}
+    </div>
+    <h2 class="role-block__heading">{heading}</h2>
+  </div>
+  <slot />
+</div>
+
+<style>
+  .role-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .role-block__header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .role-block__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base-sm);
+    color: var(--color-muted);
+  }
+
+  .role-block__marker {
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: var(--cs-accent);
+    flex-shrink: 0;
+  }
+
+  .role-block__heading {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-3xl);
+    color: var(--color-ink);
+  }
+</style>

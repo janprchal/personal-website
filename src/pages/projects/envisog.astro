@@ -1,0 +1,173 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import Gallery from '../../components/Gallery.astro';
+import RoleBlock from '../../components/RoleBlock.astro';
+import Tag from '../../components/Tag.astro';
+import Button from '../../components/Button.astro';
+
+const galleryImages = Array.from({ length: 5 }, (_, i) => ({
+  src: `/images/case-studies/envisog/browser-${i + 1}.png`,
+  alt: 'EnviSoG app screenshot',
+}));
+
+const roles = [
+  { title: 'End-to-end product design', description: 'Designed the whole app in Figma — flows, screens, and the step-by-step calculator wizard.' },
+  { title: 'Full frontend build', description: 'Built and shipped the entire frontend solo with Vue and Nuxt, from login to the multi-step calculator.' },
+  { title: 'Styling & design system', description: 'Authored the SCSS architecture — BEM and ITCSS — that keeps the UI consistent across every step.' },
+];
+
+const technologies = [
+  { name: 'Vue.js', dotColor: '#4FC08D' },
+  { name: 'Nuxt', dotColor: '#00DC82' },
+  { name: 'Pinia', dotColor: '#FFD359' },
+  { name: 'TypeScript', dotColor: '#3178C6' },
+  { name: 'SCSS', dotColor: '#CC6699' },
+  { name: 'BEM', dotColor: '#6366F1' },
+  { name: 'ITCSS', dotColor: '#F43F5E' },
+  { name: 'Figma', dotColor: '#A259FF' },
+  { name: 'Design Systems', dotColor: '#14B8A6' },
+  { name: 'Components', dotColor: '#3B82F6' },
+];
+---
+
+<CaseStudyLayout
+  pageTitle="EnviSoG — Jan Prchal"
+  pageDescription="Case study: designing and building EnviSoG, a carbon-footprint calculator guiding companies through GHG Protocol and ISO 14064 reporting."
+  accentColor="#3538CD"
+  projectLogo="/logos/envisog_no_text.svg"
+  projectLogoAlt="EnviSoG"
+  projectTitle="EnviSoG"
+  roleDate="Frontend developer & designer | 2024 - present"
+  nextHref="/projects/buildingminds"
+  nextLabel="BuildingMinds"
+>
+  <div class="cs-columns">
+    <div class="cs-columns__content">
+      <Gallery images={galleryImages} />
+
+      <div class="cs-columns__role">
+        <RoleBlock eyebrow="PROJECT" heading="What EnviSoG is">
+          <p class="cs-paragraph">A carbon-footprint calculator that guides companies through GHG Protocol and ISO 14064 emissions reporting — from energy use to company vehicles — to track and reduce their environmental impact.</p>
+        </RoleBlock>
+
+        <RoleBlock eyebrow="MY ROLE" heading="What I worked on">
+          <div class="cs-points">
+            {roles.map((role) => (
+              <div class="cs-point">
+                <h3 class="cs-point__title">{role.title}</h3>
+                <p class="cs-point__description">{role.description}</p>
+              </div>
+            ))}
+          </div>
+        </RoleBlock>
+
+        <RoleBlock eyebrow="TECHNOLOGIES" heading="What I worked with">
+          <div class="cs-tags">
+            {technologies.map((tech) => <Tag dotColor={tech.dotColor}>{tech.name}</Tag>)}
+          </div>
+        </RoleBlock>
+
+        <div class="cs-buttons">
+          <a class="cs-btn-accent" href="#" target="_blank" rel="noopener noreferrer">Visit envisog &#8599;</a>
+          <Button variant="outline" size="large" href="#contact">Get in touch</Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</CaseStudyLayout>
+
+<style>
+  .cs-columns {
+    padding: 0 16px 64px;
+  }
+
+  .cs-columns__content {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  .cs-columns__content > :global(.gallery) {
+    flex: 558;
+    min-width: 0;
+  }
+
+  .cs-columns__role {
+    flex: 354;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .cs-paragraph {
+    padding-left: 14px;
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-deep);
+  }
+
+  .cs-points {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .cs-point {
+    padding-left: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-left: 2px solid var(--cs-accent);
+  }
+
+  .cs-point__title {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--text-md);
+    color: var(--color-ink);
+  }
+
+  .cs-point__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-deep);
+  }
+
+  .cs-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cs-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .cs-btn-accent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: var(--radius-button);
+    background: var(--color-surface);
+    color: var(--cs-accent);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--text-base);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.15s ease;
+  }
+  .cs-btn-accent:hover {
+    box-shadow: var(--shadow-btn-outline-hover);
+  }
+  .cs-btn-accent:active {
+    box-shadow: var(--shadow-btn-outline-active);
+  }
+</style>

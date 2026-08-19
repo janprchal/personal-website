@@ -1,0 +1,270 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import Gallery from '../../components/Gallery.astro';
+import RoleBlock from '../../components/RoleBlock.astro';
+import Tag from '../../components/Tag.astro';
+import Button from '../../components/Button.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+
+const galleryImages = Array.from({ length: 5 }, (_, i) => ({
+  src: `/images/case-studies/buildingminds/browser-${i + 1}.png`,
+  alt: 'BuildingMinds app screenshot',
+}));
+
+const roles = [
+  { title: 'UI implementation', description: 'Turned Figma designs into production code across the dashboard, reporting, and planning tools.' },
+  { title: 'Cross-team delivery', description: 'Worked in agile sprints with backend and design, from code review to shaping process.' },
+  { title: 'Design input', description: 'Flagged UX gaps and shaped the design, not just implementation.' },
+];
+
+const technologies = [
+  { name: 'Angular (v18+)', dotColor: '#DD0031' },
+  { name: 'TypeScript', dotColor: '#3178C6' },
+  { name: 'Sass', dotColor: '#CC6699' },
+  { name: 'BEM', dotColor: '#6366F1' },
+  { name: 'ITCSS', dotColor: '#F43F5E' },
+  { name: 'Figma', dotColor: '#A259FF' },
+  { name: 'Design Systems', dotColor: '#14B8A6' },
+  { name: 'Components', dotColor: '#3B82F6' },
+  { name: 'Storybook', dotColor: '#FF4785' },
+  { name: 'Angular Material', dotColor: '#3F51B5' },
+];
+---
+
+<CaseStudyLayout
+  pageTitle="BuildingMinds — Jan Prchal"
+  pageDescription="Case study: frontend development on BuildingMinds, a SaaS platform for real estate asset managers."
+  accentColor="#FF3D00"
+  projectLogo="/logos/buildingminds.svg"
+  projectLogoAlt="BuildingMinds"
+  projectTitle="BuildingMinds"
+  roleDate="Frontend Developer · 2024 – Present"
+  nextHref="/projects/envisog"
+  nextLabel="Carbon Calculator"
+>
+  <div class="cs-columns">
+    <div class="cs-columns__content">
+      <Gallery images={galleryImages} />
+
+      <div class="cs-columns__role">
+        <RoleBlock eyebrow="PROJECT" heading="What BuildingMinds is">
+          <p class="cs-paragraph">A SaaS platform for real estate asset managers — portfolio tracking, ESG reporting, and retrofit planning in one place.</p>
+        </RoleBlock>
+
+        <RoleBlock eyebrow="MY ROLE" heading="What I worked on">
+          <div class="cs-points">
+            {roles.map((role) => (
+              <div class="cs-point">
+                <h3 class="cs-point__title">{role.title}</h3>
+                <p class="cs-point__description">{role.description}</p>
+              </div>
+            ))}
+          </div>
+        </RoleBlock>
+
+        <RoleBlock eyebrow="TECHNOLOGIES" heading="What I worked with">
+          <div class="cs-tags">
+            {technologies.map((tech) => <Tag dotColor={tech.dotColor}>{tech.name}</Tag>)}
+          </div>
+        </RoleBlock>
+
+        <RoleBlock eyebrow="BEYOND THIS APP" heading="Also built the system it runs on">
+          <p class="cs-paragraph">Alongside this app, I designed, built, and maintain BuildingMinds' shared Angular component library — 50+ components, consumed by 3 apps across 5 teams. The real challenge wasn't the tooling; it was keeping every team's UI consistent and non-breaking as they all shipped independently.</p>
+          <div class="cs-stats">
+            <div class="cs-stat">
+              <span class="cs-stat__number">50+</span>
+              <span class="cs-stat__label">COMPONENTS</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat__number">3</span>
+              <span class="cs-stat__label">APPS</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat__number">5</span>
+              <span class="cs-stat__label">TEAMS</span>
+            </div>
+          </div>
+        </RoleBlock>
+
+        <div class="cs-buttons">
+          <a class="cs-btn-accent" href="https://buildingminds.com" target="_blank" rel="noopener noreferrer">Visit buildingminds &#8599;</a>
+          <Button variant="outline" size="large" href="#contact">Get in touch</Button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cs-testimonials">
+    <div class="cs-testimonials__content">
+      <span class="cs-testimonials__eyebrow">WHAT THEY SAID</span>
+      <div class="cs-testimonials__row">
+        <TestimonialCard
+          quote="Jan is a good team member and good co-worker. He likes new technologies and challenging tasks, is oriented on excellent results, and — as a person — very cheerful."
+          name="Victor Espinoza"
+          role="Frontend Developer, BuildingMinds"
+          avatarInitials="VE"
+          avatarAccent="green"
+          quoteMarkAccent="green"
+        />
+        <TestimonialCard
+          quote="Jan is, without a doubt, a master of his specialization. His attention to detail is unmatched — he turns complex designs into pixel-perfect, responsive, high-performance UIs."
+          name="Michal Šajdík"
+          role="Angular / React Developer"
+          avatarInitials="MŠ"
+          avatarAccent="yellow"
+          quoteMarkAccent="green"
+        />
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .cs-columns {
+    padding: 0 16px 64px;
+  }
+
+  .cs-columns__content {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  .cs-columns__content > :global(.gallery) {
+    flex: 558;
+    min-width: 0;
+  }
+
+  .cs-columns__role {
+    flex: 354;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .cs-paragraph {
+    padding-left: 14px;
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-deep);
+  }
+
+  .cs-points {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .cs-point {
+    padding-left: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-left: 2px solid var(--cs-accent);
+  }
+
+  .cs-point__title {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--text-md);
+    color: var(--color-ink);
+  }
+
+  .cs-point__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-deep);
+  }
+
+  .cs-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cs-stats {
+    display: flex;
+    gap: 32px;
+  }
+
+  .cs-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cs-stat__number {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-2xl);
+    color: var(--cs-accent);
+  }
+
+  .cs-stat__label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .cs-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .cs-btn-accent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: var(--radius-button);
+    background: var(--color-surface);
+    color: var(--cs-accent);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--text-base);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .cs-btn-accent:hover {
+    box-shadow: var(--shadow-btn-outline-hover);
+  }
+  .cs-btn-accent:active {
+    box-shadow: var(--shadow-btn-outline-active);
+  }
+
+  .cs-testimonials {
+    padding: 64px 16px;
+  }
+
+  .cs-testimonials__content {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .cs-testimonials__eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base-sm);
+    color: var(--color-muted);
+  }
+
+  .cs-testimonials__row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .cs-testimonials__row > :global(*) {
+    flex: 1;
+    min-width: 320px;
+  }
+</style>

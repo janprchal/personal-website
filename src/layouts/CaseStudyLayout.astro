@@ -1,0 +1,105 @@
+---
+import '../styles/global.css';
+import CaseStudyHero from '../components/CaseStudyHero.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  pageTitle: string;
+  pageDescription: string;
+  accentColor: string;
+  projectLogo: string;
+  projectLogoAlt: string;
+  projectTitle: string;
+  roleDate: string;
+  nextHref: string;
+  nextLabel: string;
+}
+
+const {
+  pageTitle, pageDescription, accentColor,
+  projectLogo, projectLogoAlt, projectTitle, roleDate,
+  nextHref, nextLabel,
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+  </head>
+  <body style={`--cs-accent: ${accentColor};`}>
+    <CaseStudyHero
+      projectLogo={projectLogo}
+      projectLogoAlt={projectLogoAlt}
+      projectTitle={projectTitle}
+      roleDate={roleDate}
+    />
+
+    <slot />
+
+    <nav class="cs-next" aria-label="Project navigation">
+      <div class="cs-next__content">
+        <a class="cs-next__link" href="/">
+          <span class="cs-next__eyebrow">BACK TO HOME</span>
+          <span class="cs-next__label">&larr; Portfolio Page</span>
+        </a>
+        <a class="cs-next__link cs-next__link--right" href={nextHref}>
+          <span class="cs-next__eyebrow">NEXT PROJECT</span>
+          <span class="cs-next__label">{nextLabel} &rarr;</span>
+        </a>
+      </div>
+    </nav>
+
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  .cs-next {
+    padding: 40px 16px;
+  }
+
+  .cs-next__content {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .cs-next__link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: opacity 0.15s ease;
+  }
+  .cs-next__link:hover,
+  .cs-next__link:focus-visible {
+    opacity: 0.7;
+  }
+
+  .cs-next__link--right {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .cs-next__eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .cs-next__label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-xl);
+    color: var(--color-ink);
+  }
+</style>
