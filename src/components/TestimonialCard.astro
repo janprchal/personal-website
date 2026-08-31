@@ -8,11 +8,12 @@ interface Props {
   role: string;
   avatarInitials: string;
   avatarAccent: 'yellow' | 'green' | 'blue';
+  avatarPhoto?: string;
   quoteMarkAccent?: 'yellow' | 'green' | 'blue';
 }
 
 const {
-  quote, name, role, avatarInitials, avatarAccent,
+  quote, name, role, avatarInitials, avatarAccent, avatarPhoto,
   quoteMarkAccent = avatarAccent,
 } = Astro.props;
 
@@ -29,7 +30,7 @@ const quoteMarkColor: Record<string, string> = {
     <p class="testimonial-card__quote">{quote}</p>
   </div>
   <div class="testimonial-card__attribution">
-    <Avatar initials={avatarInitials} accent={avatarAccent} size={36} />
+    <Avatar initials={avatarInitials} accent={avatarAccent} photo={avatarPhoto} photoAlt={name} size={36} />
     <div class="testimonial-card__name">
       <span class="testimonial-card__name-text">{name}</span>
       <span class="testimonial-card__role">{role}</span>

@@ -5,6 +5,7 @@
 
 const MOBILE_QUERY = '(max-width: 640px)';
 const BREATHING_ROOM_PX = 24;
+const DETECTION_BAND_PX = 200;
 
 function resolveTargets(root) {
   const links = [...root.querySelectorAll('.header__nav a[href^="#"]')];
@@ -38,7 +39,12 @@ export function initNavScrollspy(root = document) {
     const header = root.querySelector('.header');
     const headerHeight = header ? header.getBoundingClientRect().height : 0;
     const headerOffset = 16; // .header's fixed `top` value
-    const clearance = Math.round(headerHeight) + headerOffset + BREATHING_ROOM_PX;
+    const topMargin = Math.round(headerHeight) + headerOffset + BREATHING_ROOM_PX;
+    // Bottom margin in px, not %, so the active band stays a fixed height
+    // (DETECTION_BAND_PX) below the header on any viewport — a percentage
+    // grows with viewport height and, on a tall enough window, ends up
+    // covering content that's already on screen without any scrolling.
+    const bottomMargin = Math.max(window.innerHeight - topMargin - DETECTION_BAND_PX, 0);
 
     observer = new IntersectionObserver(
       (entries) => {
@@ -50,7 +56,7 @@ export function initNavScrollspy(root = document) {
         );
         setActive(targets, nearest.target.id);
       },
-      { rootMargin: `-${clearance}px 0px -55% 0px`, threshold: 0 }
+      { rootMargin: `-${topMargin}px 0px -${bottomMargin}px 0px`, threshold: 0 }
     );
 
     targets.forEach(({ section }) => observer.observe(section));
@@ -58,4 +64,5 @@ export function initNavScrollspy(root = document) {
 
   connect();
   mobileQuery.addEventListener('change', connect);
+  window.addEventListener('resize', connect);
 }

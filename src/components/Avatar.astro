@@ -1,12 +1,15 @@
 ---
 // Blue bg needs white text for contrast; yellow/green need dark ink.
+// photo (optional) renders instead of initials — pass photoAlt with it.
 interface Props {
   initials: string;
   accent: 'yellow' | 'green' | 'blue';
   size?: number;
+  photo?: string;
+  photoAlt?: string;
 }
 
-const { initials, accent, size = 32 } = Astro.props;
+const { initials, accent, size = 32, photo, photoAlt = '' } = Astro.props;
 
 const bg: Record<string, string> = {
   yellow: 'var(--color-accent-yellow)',
@@ -20,7 +23,7 @@ const textColor = accent === 'blue' ? 'var(--color-surface)' : 'var(--color-ink)
   class="avatar"
   style={`--avatar-size: ${size}px; --avatar-bg: ${bg[accent]}; --avatar-text: ${textColor};`}
 >
-  {initials}
+  {photo ? <img class="avatar__photo" src={photo} alt={photoAlt} /> : initials}
 </span>
 
 <style>
@@ -32,10 +35,17 @@ const textColor = accent === 'blue' ? 'var(--color-surface)' : 'var(--color-ink)
     width: var(--avatar-size);
     height: var(--avatar-size);
     border-radius: 50%;
+    overflow: hidden;
     background: var(--avatar-bg);
     color: var(--avatar-text);
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 12px;
+  }
+
+  .avatar__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>
