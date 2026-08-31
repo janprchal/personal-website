@@ -1,0 +1,174 @@
+---
+// Distinct header for the CV page — not Header.astro or CaseStudyHero.astro.
+import Button from './Button.astro';
+---
+
+<header class="cv-header">
+  <div class="cv-header__topbar">
+    <a class="cv-header__back" href="/">
+      <span class="cv-header__back-eyebrow">BACK TO PORTFOLIO</span>
+      <span class="cv-header__back-label">&larr; Portfolio Page</span>
+    </a>
+    <a class="cv-header__logo" href="/" aria-label="Jan Prchal — home">
+      <img src="/logo.svg" alt="" width="36" height="36" />
+    </a>
+    <Button variant="filled" size="small" href="/resume.pdf" target="_blank" style="padding: 10px 18px;">Download CV (PDF) &darr;</Button>
+  </div>
+
+  <div class="cv-header__center">
+    <span class="cv-header__eyebrow">RESUME</span>
+    <h1 class="cv-header__name">Jan Prchal</h1>
+    <p class="cv-header__role">Frontend Developer &amp; Designer</p>
+    <p class="cv-header__contact">
+      Hradec Králové, Czechia &nbsp;&middot;&nbsp; +420 775 160 190 &nbsp;&middot;&nbsp;
+      <a href="mailto:prchal.honzak@gmail.com">prchal.honzak@gmail.com</a>
+    </p>
+    <p class="cv-header__links">
+      <a href="/">janprchal.cz</a> &nbsp;&middot;&nbsp;
+      <a href="https://github.com/janprchal" target="_blank" rel="noopener noreferrer">github.com/janprchal</a> &nbsp;&middot;&nbsp;
+      <a href="https://linkedin.com/in/prchaljan" target="_blank" rel="noopener noreferrer">linkedin.com/in/prchaljan</a>
+    </p>
+  </div>
+</header>
+
+<style>
+  .cv-header {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 64px 16px 48px;
+  }
+
+  .cv-header__topbar {
+    position: relative;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .cv-header__back {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    transition: opacity 0.15s ease;
+  }
+  .cv-header__back:hover,
+  .cv-header__back:focus-visible {
+    opacity: 0.7;
+  }
+
+  .cv-header__back-eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base-sm);
+    color: var(--color-muted);
+  }
+
+  .cv-header__back-label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-xl);
+    color: var(--color-ink);
+  }
+
+  /* Absolutely centered — space-between's middle isn't reliably centered
+     when the flanking items have unequal widths. */
+  .cv-header__logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+  }
+
+  .cv-header__center {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .cv-header__eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base-sm);
+    color: var(--color-muted);
+  }
+
+  .cv-header__name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 3rem; /* 48px, not in the token scale — a one-off size */
+    color: var(--color-ink);
+  }
+
+  .cv-header__role {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-xl);
+    color: var(--color-ink);
+  }
+
+  .cv-header__contact {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--text-base);
+    color: var(--color-muted);
+  }
+  .cv-header__contact a {
+    color: var(--color-accent-blue);
+    text-decoration: underline;
+    transition: opacity 0.15s ease;
+  }
+  .cv-header__contact a:hover,
+  .cv-header__contact a:focus-visible {
+    opacity: 0.7;
+  }
+
+  .cv-header__links {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--text-base);
+    color: var(--color-ink);
+  }
+  .cv-header__links a {
+    color: var(--color-accent-blue);
+    text-decoration: underline;
+    transition: opacity 0.15s ease;
+  }
+  .cv-header__links a:hover,
+  .cv-header__links a:focus-visible {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 1024px) {
+    .cv-header {
+      padding: 48px 16px 40px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cv-header {
+      padding: 40px 16px 32px;
+      gap: 28px;
+    }
+
+    .cv-header__logo {
+      display: none;
+    }
+
+    .cv-header__name {
+      font-size: var(--text-4xl);
+    }
+  }
+</style>

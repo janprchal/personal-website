@@ -1,0 +1,36 @@
+---
+// Left-aligned eyebrow+heading — Section.astro centers instead (homepage only).
+interface Props {
+  eyebrow: string;
+  heading: string;
+}
+
+const { eyebrow, heading } = Astro.props;
+---
+
+<div class="cv-section-header">
+  <span class="cv-section-header__eyebrow">{eyebrow}</span>
+  <h2 class="cv-section-header__heading">{heading}</h2>
+</div>
+
+<style>
+  .cv-section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cv-section-header__eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base-sm);
+    color: var(--color-muted);
+  }
+
+  .cv-section-header__heading {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-4xl);
+    color: var(--color-ink);
+  }
+</style>

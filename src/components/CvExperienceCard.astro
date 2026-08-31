@@ -1,0 +1,84 @@
+---
+// Deliberately not PositionCard — plain rows, no card shell/logo band.
+interface Props {
+  role: string;
+  dates: string;
+  company: string;
+  description: string;
+}
+
+const { role, dates, company, description } = Astro.props;
+---
+
+<div class="exp-card">
+  <div class="exp-card__head">
+    <h3 class="exp-card__role"><span>{role}</span></h3>
+    <span class="exp-card__dates">{dates}</span>
+  </div>
+  <p class="exp-card__company">{company}</p>
+  <p class="exp-card__description">{description}</p>
+</div>
+
+<style>
+  .exp-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px 0;
+  }
+
+  .exp-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .exp-card__role {
+    position: relative;
+    display: inline-flex;
+  }
+
+  /* left/right:-2px auto-sizes the bar to the title's own rendered width. */
+  .exp-card__role::after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    bottom: 2px;
+    height: 8px;
+    background: var(--color-accent-yellow);
+    z-index: 0;
+  }
+
+  .exp-card__role span {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-xl);
+    color: var(--color-ink);
+  }
+
+  .exp-card__dates {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .exp-card__company {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: var(--text-base-sm);
+    color: var(--color-ink);
+  }
+
+  .exp-card__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-ink);
+    white-space: pre-line;
+  }
+</style>

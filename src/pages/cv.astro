@@ -1,0 +1,456 @@
+---
+// Numbered project-index chips ("01".."06") are skipped intentionally —
+// they're hidden in the source Figma file, not an oversight.
+import '../styles/global.css';
+import Button from '../components/Button.astro';
+import CvHeader from '../components/CvHeader.astro';
+import CvSectionHeader from '../components/CvSectionHeader.astro';
+import CvExperienceCard from '../components/CvExperienceCard.astro';
+import Tag from '../components/Tag.astro';
+import Footer from '../components/Footer.astro';
+
+const experience = [
+  {
+    role: 'Frontend Developer',
+    dates: '07/2024 – Present',
+    company: 'BuildingMinds · Berlin, remote',
+    description: 'Developed frontend features using Angular (v18+) and TypeScript, including standalone components and signals. Implemented UI/UX designs and contributed to the design process. Took part in code reviews and agile sprints.',
+  },
+  {
+    role: 'Frontend Developer & Designer',
+    dates: '11/2016 – 06/2024',
+    company: 'Enrian Partners · Prague',
+    description: "Designed and built applications and websites for 7 clients across banking, insurance, and telco, including Komerční banka, UniCredit, Tatra banka, Zurich, Nedbank, T-Mobile, and Molo Finance, often shipping several applications per client.\nCreated the company's design system (SCSS, ITCSS, BEM) with a utility layer generated from design tokens, deployed on 3 internal products. Documented at tuts.janprchal.cz.\nWorked daily with client teams (stand-ups, Slack, Teams) and validated designs directly with product owners and users.\nBuilt UIs in Vue and TypeScript, wrote templates in Latte, Smarty, and Pug, and designed everything in Figma.",
+  },
+  {
+    role: 'Frontend Developer',
+    dates: '03/2016 – 11/2016',
+    company: 'Rohlik.cz · Prague',
+    description: 'E-commerce redesign for a leading Czech online grocer, using Nette, Latte, SCSS/BEM, and jQuery.',
+  },
+  {
+    role: 'Web Developer',
+    dates: '07/2015 – 09/2015',
+    company: 'FG Forrest · Prague',
+    description: 'Built websites for ČEZ, a major energy utility, using HTML, Less, jQuery, and Freemarker.',
+  },
+  {
+    role: 'Frontend Developer',
+    dates: '11/2014 – 06/2015',
+    company: 'PragueBest · Prague',
+    description: 'Built websites for clients including Teta Drogerie, Neckermann, Globus, and Honda.',
+  },
+  {
+    role: 'Web Coder',
+    dates: '04/2014 – 10/2014',
+    company: 'Tarsago Media Group · Prague',
+    description: 'Built sales websites and microsites using HTML, CSS (SCSS), and JavaScript (jQuery).',
+  },
+  {
+    role: 'Web Coder / Designer',
+    dates: '06/2012 – 03/2014',
+    company: 'EMTC Czech · Prague',
+    description: 'Built HTML templates for Nette, responsive websites, and HTML e-mails, styled with CSS (SCSS) and enhanced with JavaScript (jQuery), with designs in Photoshop.',
+  },
+];
+
+const skillGroups = [
+  {
+    label: 'Languages',
+    tags: [
+      { name: 'JavaScript', dotColor: '#F7DF1E' },
+      { name: 'TypeScript', dotColor: '#3178C6' },
+      { name: 'HTML', dotColor: '#E34F26' },
+      { name: 'CSS', dotColor: '#264DE4' },
+    ],
+  },
+  {
+    label: 'Frontend',
+    tags: [
+      { name: 'Vue.js', dotColor: '#4FC08D' },
+      { name: 'Nuxt', dotColor: '#00DC82' },
+      { name: 'Pinia', dotColor: '#FFD359' },
+      { name: 'Angular', dotColor: '#DD0031' },
+      { name: 'Angular Material', dotColor: '#3F51B5' },
+      { name: 'SCSS', dotColor: '#CC6699' },
+      { name: 'BEM', dotColor: '#6366F1' },
+      { name: 'ITCSS', dotColor: '#F43F5E' },
+      { name: 'GSAP', dotColor: '#0AE448' },
+    ],
+  },
+  {
+    label: 'Design',
+    tags: [
+      { name: 'Figma', dotColor: '#A259FF' },
+      { name: 'Design Systems', dotColor: '#14B8A6' },
+      { name: 'Components', dotColor: '#3B82F6' },
+      { name: 'Prototyping', dotColor: '#F59E0B' },
+      { name: 'Storybook', dotColor: '#FF4785' },
+    ],
+  },
+  {
+    label: 'Tooling',
+    tags: [
+      { name: 'Git', dotColor: '#F05032' },
+      { name: 'Claude Code', dotColor: '#CC785C' },
+    ],
+  },
+];
+
+// Link URLs aren't specified in Figma (plain label text) — sourced from
+// the real PDF CV instead.
+const projects = [
+  {
+    title: 'Design system',
+    dateRange: '2016 – 2024',
+    links: [{ label: 'tuts.janprchal.cz', href: 'https://tuts.janprchal.cz' }],
+    description: 'I built the whole system myself: tokens, components, the utility layer, and the documentation site.',
+  },
+  {
+    title: 'Konference',
+    dateRange: '2019',
+    links: [
+      { label: 'Figma', href: 'https://www.figma.com/design/RQljW7LEAZif8ajtMK2AmHpu/Konference' },
+      { label: 'conference.janprchal.cz', href: 'https://conference.janprchal.cz' },
+    ],
+    description: 'I designed and built this project end to end, from Figma to the finished site.',
+  },
+  {
+    title: 'EnviSoG',
+    dateRange: '2024 – Present',
+    links: [{ label: 'Figma', href: 'https://www.figma.com/design/PfTie7bgEHj2id1tx6ww5P/EnviSoG' }],
+    description: "A carbon-footprint calculator I'm building with friends at Envisog s.r.o. I designed the system myself. Happy to demo the app live.",
+  },
+  {
+    title: 'Homeandstem',
+    dateRange: '2026',
+    links: [
+      { label: 'Figma', href: 'https://www.figma.com/design/kFyEtVBYBwiAsJItoyxU2I/Homeandstem' },
+      { label: 'GitHub', href: 'https://github.com/janprchal/homeandstem' },
+    ],
+    description: 'I designed and coded this with Claude Code, directing the whole build myself. It shows how I run agentic development and guard output quality.',
+  },
+  {
+    title: 'Archive',
+    links: [{ label: 'Figma', href: 'https://www.figma.com/design/0hXATT8oVRMPsccMN8RPxK/Archiv' }],
+    description: 'Earlier design work, collected in one place.',
+  },
+  {
+    title: 'Design manual',
+    links: [{ label: 'design.janprchal.cz', href: 'https://design.janprchal.cz' }],
+    description: 'Typography and an SVG icon system.',
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Jan Prchal — Resume</title>
+    <meta name="description" content="Jan Prchal's resume — experience, skills, education, and selected projects." />
+  </head>
+  <body style="background: var(--color-surface);">
+    <CvHeader />
+
+    <section class="cv-summary">
+      <p class="cv-summary__text">
+        Ten-plus years building interfaces with Vue.js and Angular, designing them first. I take products from Figma mockups through to production TypeScript, HTML, and CSS.
+      </p>
+    </section>
+
+    <section class="cv-section" id="experience">
+      <CvSectionHeader eyebrow="EXPERIENCE" heading="Where I've worked" />
+      <div class="cv-experience__cards">
+        {experience.map((entry) => (
+          <CvExperienceCard role={entry.role} dates={entry.dates} company={entry.company} description={entry.description} />
+        ))}
+      </div>
+    </section>
+
+    <section class="cv-section" id="skills">
+      <CvSectionHeader eyebrow="SKILLS" heading="What I work with" />
+      <div class="cv-skills">
+        {skillGroups.map((group) => (
+          <div class="cv-skills__group">
+            <span class="cv-skills__label">{group.label}</span>
+            <div class="cv-skills__tags">
+              {group.tags.map((tag) => <Tag dotColor={tag.dotColor}>{tag.name}</Tag>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="cv-section" id="projects">
+      <CvSectionHeader eyebrow="PROJECTS" heading="Selected work" />
+      <div class="cv-projects">
+        {projects.map((project) => (
+          <div class="cv-projects__row">
+            <div class="cv-projects__head">
+              <h3 class="cv-projects__title">{project.title}</h3>
+              <div class="cv-projects__meta">
+                {project.dateRange && <span class="cv-projects__date">{project.dateRange}</span>}
+                {project.dateRange && <span class="cv-projects__dot">&middot;</span>}
+                {project.links.map((link, i) => (
+                  <>
+                    {i > 0 && <span class="cv-projects__dot">&middot;</span>}
+                    <a class="cv-projects__link" href={link.href} target="_blank" rel="noopener noreferrer">{link.label} &#8599;</a>
+                  </>
+                ))}
+              </div>
+            </div>
+            <p class="cv-projects__description">{project.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="cv-section" id="education">
+      <CvSectionHeader eyebrow="BACKGROUND" heading="Education & languages" />
+      <div class="cv-education">
+        <div class="cv-education__col">
+          <span class="cv-education__label">EDUCATION</span>
+          <p class="cv-education__text">Secondary technical school - electrical engineering, specialization in computer systems &middot; 2002 - 2006</p>
+        </div>
+        <div class="cv-education__col">
+          <span class="cv-education__label">LANGUAGES</span>
+          <p class="cv-education__text">Czech &mdash; native</p>
+          <p class="cv-education__text">English &mdash; intermediate, used daily at work</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cv-closing">
+      <span class="cv-closing__eyebrow">BEFORE YOU GO</span>
+      <h2 class="cv-closing__heading">Want the full PDF version?</h2>
+      <Button variant="filled" size="large" href="/resume.pdf" target="_blank" style="padding: 14px 28px;">Download CV (PDF) &darr;</Button>
+    </section>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .cv-summary {
+    display: flex;
+    justify-content: center;
+    padding: 0 16px 56px;
+  }
+
+  .cv-summary__text {
+    max-width: 700px;
+    font-family: var(--font-mono);
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+    color: var(--color-muted);
+    text-align: center;
+  }
+
+  .cv-section {
+    padding: 8px 16px 56px;
+  }
+
+  @media (max-width: 1024px) {
+    .cv-summary {
+      padding: 0 16px 40px;
+    }
+
+    .cv-section {
+      padding: 8px 16px 40px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cv-summary {
+      padding: 0 16px 32px;
+    }
+
+    .cv-section {
+      padding: 8px 16px 32px;
+    }
+  }
+
+  .cv-section > :global(.cv-section-header),
+  .cv-experience__cards,
+  .cv-skills,
+  .cv-projects,
+  .cv-education {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .cv-experience__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .cv-skills {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .cv-skills__group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cv-skills__label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base);
+    color: var(--color-ink);
+  }
+
+  .cv-skills__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cv-projects {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+  }
+
+  .cv-projects__row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cv-projects__row:last-child {
+    border-bottom: none;
+  }
+
+  .cv-projects__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .cv-projects__title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-lg);
+    color: var(--color-ink);
+  }
+
+  .cv-projects__meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .cv-projects__date {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .cv-projects__dot {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .cv-projects__link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-accent-blue);
+    text-decoration: underline;
+    transition: opacity 0.15s ease;
+  }
+  .cv-projects__link:hover,
+  .cv-projects__link:focus-visible {
+    opacity: 0.7;
+  }
+
+  .cv-projects__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-ink);
+  }
+
+  .cv-education {
+    display: flex;
+    gap: 64px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 640px) {
+    .cv-education {
+      gap: 32px;
+    }
+  }
+
+  .cv-education__col {
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cv-education__label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .cv-education__text {
+    font-family: var(--font-body);
+    font-size: 0.9375rem; /* 15px, not in the token scale — a one-off size */
+    line-height: var(--leading-normal);
+    color: var(--color-ink);
+  }
+
+  .cv-closing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 72px 16px;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .cv-closing {
+      padding: 48px 16px;
+    }
+
+    .cv-closing__heading {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .cv-closing__eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-base-sm);
+    color: var(--color-muted);
+  }
+
+  .cv-closing__heading {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-4xl);
+    color: var(--color-ink);
+  }
+</style>
