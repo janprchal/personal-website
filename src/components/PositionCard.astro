@@ -1,15 +1,8 @@
 ---
 import Card from './Card.astro';
 
-/*
- * Confirmed against Figma directly (node 118:3172): the attribution slot
- * shows the company's logo mark, not an initials avatar — the
- * ellipse+initials nodes are present but `visible: false`, a hidden
- * alternate state, same pattern as the Hero's unused headline text node.
- * `description` is trusted HTML (Figma has real bold spans on key terms,
- * e.g. "<strong>Angular (v18+)</strong>") — callers must supply markup,
- * not attacker-controlled input.
- */
+// `description` is trusted HTML (bold spans on key terms) — callers must
+// supply markup, never attacker-controlled input.
 interface Props {
   role: string;
   dates: string;
@@ -37,19 +30,8 @@ const { role, dates, description, company, logo, logoAlt } = Astro.props;
 </Card>
 
 <style>
-  /*
-   * Must wrap the WHOLE selector in :global(), not just the right side.
-   * `.card__inner` is rendered by Card.astro's own template, so it carries
-   * Card's Astro scope attribute, not PositionCard's — a selector like
-   * `.position-card :global(.card__inner)` compiles to
-   * `.position-card[data-astro-cid-positioncard] .card__inner`, which can
-   * never match because that scope attribute is never present on the
-   * `.card` root (it has Card's own scope attribute instead). Confirmed via
-   * computed styles: padding stayed 0 despite this rule existing verbatim
-   * in the compiled stylesheet. Same root cause explained the missing
-   * body-to-attribution gap AND (for TestimonialCard) the broken
-   * height:100%/flex column that was supposed to bottom-align attribution.
-   */
+  /* Whole selector must be :global() — .card__inner carries Card.astro's
+     own scope attribute, so a partial :global() never matches. */
   :global(.position-card .card__inner) {
     padding: 4px;
     display: flex;

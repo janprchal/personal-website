@@ -1,13 +1,6 @@
 ---
-/*
- * Shared card shell — Position/Testimonial/Project cards all use this.
- * Mirrors the Figma structure deliberately: an outer "shadow shell" (just
- * the shadow, no fill/overflow-clip) wrapping an inner "clip shell" (fill +
- * radius + overflow:hidden + the real content). Same reason the Figma file
- * itself is split this way — see CLAUDE.md's `clipsContent` gotcha in the
- * ai-design-tool workspace: a single element with both a shadow AND
- * `overflow: hidden` clips its own shadow at its own edge.
- */
+// Shadow lives on the outer div, overflow:hidden on the inner — combined
+// on one element, overflow would clip the shadow at its own edge.
 interface Props {
   class?: string;
 }

@@ -1,18 +1,5 @@
-/*
- * Design tokens — single source of truth for values used across components.
- *
- * Source: personal-portfolio/moodboard/style.md in the sibling
- * ai-design-tool workspace, plus the Figma file itself (page "Portfolio
- * (redesign)", fileKey 655z8NoAezzUGfOmfTC9zS). Values here were pulled
- * directly from Figma node properties on 2026-08-18, after fixing 4 real
- * drift bugs a fresh scan turned up (see style.md's matching revision-
- * history entry): a missed yellow-token instance, two near-duplicate
- * off-white section backgrounds, the still-open attribution-band gray, and
- * a stale Nav Card shadow on "Homepage - Design" that didn't match
- * "Homepage - FE dev". Don't hand-edit a value here without checking
- * Figma first — this file should always mirror the corrected design, not
- * drift from it.
- */
+/* Design tokens — single source of truth for values used across components.
+   Check Figma before hand-editing a value here; this should mirror the design. */
 
 :root {
   /* Ink / text */
@@ -24,7 +11,7 @@
   --color-bg: #F7F6F2;        /* warm off-white base — Hero, Testimonials, Projects section backgrounds */
   --color-surface: #FFFFFF;   /* card fill */
   --color-attribution-bg: #F4F2EE; /* testimonial attribution band */
-  --color-border: #E0E0DB;    /* structural borders — tag pills, skills-table rows, project-list dividers (NOT the card family, which has no border) */
+  --color-border: #E0E0DB;    /* structural borders — not used by the card family */
 
   /* Brand accents — sourced from janprchal.cz's real CSS, not invented */
   --color-accent-yellow: #FEDE3C;
@@ -35,14 +22,14 @@
   /* Radii */
   --radius-card: 5px;   /* Position / Testimonial / Project cards */
   --radius-button: 6px;
-  --radius-nav: 10px;   /* confirmed identical on both homepage variants — style.md's original "20px" note was stale, corrected 2026-08-18 */
+  --radius-nav: 10px;
   --radius-accent-frame: 8px; /* small decorative frames, browser-chrome mockups in case studies */
   --radius-pill: 999px; /* tag pills */
 
   /* Shadows */
-  --shadow-card: 0 8px 14px rgba(0, 0, 0, 0.12);       /* Position/Testimonial/Project card family — spread 2 folded into the blur radius approximation; see style.md for the exact Figma effect */
+  --shadow-card: 0 8px 14px rgba(0, 0, 0, 0.12);       /* card family */
   --shadow-nav: 0 4px 20px rgba(47, 50, 63, 0.08);     /* floating nav card */
-  --shadow-subtle: 0 1px 1px rgba(48, 48, 32, 0.18);   /* "Experience - quick" / Currently cards — a different, lighter-weight component, not part of the card family above */
+  --shadow-subtle: 0 1px 1px rgba(48, 48, 32, 0.18);   /* lighter-weight, not part of the card family */
 
   /* Filled button ("primary CTA") states */
   --color-btn-fill: var(--color-ink);
@@ -61,23 +48,14 @@
   --focus-ring-width: 2px;
   --focus-ring-offset: 3px;
 
-  /* Text-link underline (hand-drawn rectangle, not native text-decoration — see legacy-site/js/app.js for the sweep-animation mechanic to port) */
-  --link-underline-height: 2px;
+  --link-underline-height: 2px; /* hand-drawn rectangle, not text-decoration */
 
   /* Typography */
   --font-heading: 'Rubik', sans-serif;   /* Black/Bold/SemiBold weights */
   --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace; /* labels, tags, small metadata only — never a primary typeface, incl. NOT the Hero bio paragraph even though Figma currently sets it in mono */
+  --font-mono: 'JetBrains Mono', monospace; /* labels/tags/metadata only, never body copy (incl. Hero bio) */
 
-  /*
-   * Type scale — pulled directly from Figma's actual usage across all 4
-   * frames (2026-08-18), after rounding the two fractional sizes it
-   * turned up (14.5px, 13.5px -> both 14px) back to the scale below.
-   * 14 distinct sizes across 3 families is intentional editorial richness
-   * (each family serves a distinct role — Rubik for display/headings,
-   * Inter for UI/body, JetBrains Mono for labels/eyebrows/metadata), not
-   * drift — don't consolidate further without checking Figma first.
-   */
+  /* 14 sizes across 3 font families is intentional — don't consolidate. */
   --text-2xs: 0.625rem;  /* 10px — smallest mono tags */
   --text-xs: 0.6875rem;  /* 11px — mono dates/badge */
   --text-sm: 0.75rem;    /* 12px — mono eyebrow labels, small meta */
@@ -98,5 +76,5 @@
   --leading-normal: 1.5;  /* body copy */
 
   /* Layout */
-  --section-padding-x: 240px; /* confirmed identical across all sections after the 2026-08-18 What-and-Where fix (was 215px, a drift) */
+  --section-padding-x: 240px;
 }

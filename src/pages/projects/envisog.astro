@@ -11,9 +11,9 @@ const galleryImages = Array.from({ length: 5 }, (_, i) => ({
 }));
 
 const roles = [
-  { title: 'End-to-end product design', description: 'Designed the whole app in Figma — flows, screens, and the step-by-step calculator wizard.' },
+  { title: 'End-to-end product design', description: 'Designed the whole app in Figma: flows, screens, and the step-by-step calculator wizard.' },
   { title: 'Full frontend build', description: 'Built and shipped the entire frontend solo with Vue and Nuxt, from login to the multi-step calculator.' },
-  { title: 'Styling & design system', description: 'Authored the SCSS architecture — BEM and ITCSS — that keeps the UI consistent across every step.' },
+  { title: 'Styling & design system', description: 'Authored the SCSS architecture (BEM and ITCSS) that keeps the UI consistent across every step.' },
 ];
 
 const technologies = [
@@ -37,7 +37,7 @@ const technologies = [
   projectLogo="/logos/envisog_no_text.svg"
   projectLogoAlt="EnviSoG"
   projectTitle="EnviSoG"
-  roleDate="Frontend developer & designer | 2024 - present"
+  roleDate="Frontend Developer & Designer · 2024 – Present"
   nextHref="/projects/buildingminds"
   nextLabel="BuildingMinds"
 >
@@ -47,7 +47,7 @@ const technologies = [
 
       <div class="cs-columns__role">
         <RoleBlock eyebrow="PROJECT" heading="What EnviSoG is">
-          <p class="cs-paragraph">A carbon-footprint calculator that guides companies through GHG Protocol and ISO 14064 emissions reporting — from energy use to company vehicles — to track and reduce their environmental impact.</p>
+          <p class="cs-paragraph">A carbon-footprint calculator that guides companies through GHG Protocol and ISO 14064 emissions reporting, from energy use to company vehicles, to track and reduce their environmental impact.</p>
         </RoleBlock>
 
         <RoleBlock eyebrow="MY ROLE" heading="What I worked on">
@@ -89,8 +89,28 @@ const technologies = [
     align-items: flex-start;
   }
 
-  /* :global() must wrap the whole selector — see PositionCard.astro's
-     comment on the same Astro scoping gotcha. */
+  /* Role column has a 280px floor while gallery keeps shrinking — smaller
+     gap buys the gallery back some room before the full stack below. */
+  @media (max-width: 1024px) {
+    .cs-columns__content {
+      gap: 32px;
+    }
+  }
+
+  /* Below ~660px the gallery shrinks to an unusable sliver — stack instead. */
+  @media (max-width: 640px) {
+    .cs-columns {
+      padding: 0 16px 48px;
+    }
+
+    .cs-columns__content {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 32px;
+    }
+  }
+
+  /* Whole selector must be :global() — see PositionCard.astro. */
   :global(.cs-columns__content > .gallery) {
     flex: 558;
     min-width: 0;

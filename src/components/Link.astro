@@ -1,11 +1,6 @@
 ---
-/*
- * Text link primitive — nav items, footer links, "Visit X ↗". All 4 states
- * match the Figma "Interactive States Reference" card (node 274:60): the
- * underline is a hand-drawn bar (not native text-decoration, which can't
- * control thickness/color independently), revealed via `transform: scaleX`
- * so it's GPU-accelerated rather than animating width.
- */
+// Underline is a hand-drawn bar (not text-decoration) so thickness/color
+// are controllable; revealed via scaleX for GPU-accelerated animation.
 interface Props {
   href: string;
   target?: string;
@@ -64,5 +59,14 @@ const { href, target, class: className } = Astro.props;
   .link:active .link__underline {
     transform: scaleX(1);
     background: var(--color-accent-blue-active);
+  }
+
+  /* Scrollspy active state (set by nav-scrollspy.js) — reuses hover styling. */
+  .link[aria-current='location'] {
+    color: var(--color-accent-blue);
+  }
+  .link[aria-current='location'] .link__underline {
+    transform: scaleX(1);
+    background: var(--color-accent-blue);
   }
 </style>

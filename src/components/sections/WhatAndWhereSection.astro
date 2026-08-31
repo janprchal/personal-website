@@ -82,7 +82,7 @@ const skillGroups = [
       <PositionCard
         role="Frontend Developer"
         dates="2024 - Present"
-        description={"Developed frontend features using <strong>Angular (v18+)</strong> with <strong>TypeScript</strong>, including <strong>standalone components</strong> and <strong>signals.</strong>  Main focus on <strong>implementing UI/UX designs</strong>, with partial involvement in the design process itself. \nTook part in code reviews and agile sprints"}
+        description={"Developed frontend features using <strong>Angular (v18+)</strong> and <strong>TypeScript</strong>, including <strong>standalone components</strong> and <strong>signals</strong>. Focused on <strong>implementing UI/UX designs</strong>, with some input into the design process itself.\nTook part in code reviews and agile sprints."}
         company="BuildingMinds"
         logo="/logos/buildingminds.svg"
         logoAlt="BuildingMinds"
@@ -90,7 +90,7 @@ const skillGroups = [
       <PositionCard
         role="Frontend Designer"
         dates="2016 - 2024"
-        description="Worked on multiple projects for clients across Tech, Banking, Telco, and Insurance, including Zurich, Nedbank, T-Mobile, Molo Finance and more.  Used Vue.js, Figma, SCSS, and JavaScript to design and implement responsive web interfaces."
+        description="Worked on multiple projects for clients across Tech, Banking, Telco, and Insurance, including Zurich, Nedbank, T-Mobile, Molo Finance, and more. Used Vue.js, Figma, SCSS, and JavaScript to design and implement responsive web interfaces."
         company="Enrian Partners"
         logo="/logos/enrian.svg"
         logoAlt="Enrian Partners"
@@ -170,5 +170,22 @@ const skillGroups = [
   }
   .wnw__social-btn--linkedin {
     background: #0a66c2;
+  }
+
+  /* Positions first, then skills (whose last child, "Find more", lands
+     last automatically) — via `order`, no markup change needed. */
+  @media (max-width: 640px) {
+    .wnw {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .wnw__positions {
+      order: 1;
+    }
+
+    .wnw__skills {
+      order: 2;
+    }
   }
 </style>

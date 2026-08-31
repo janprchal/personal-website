@@ -1,23 +1,9 @@
 ---
-/*
- * Generic section wrapper — eyebrow + heading + content, 960px content
- * column, 96px vertical / 240px horizontal padding at desktop width
- * (confirmed identical across all 4 sections in Figma after the 2026-08-18
- * padding-consistency fix). Heading weight: 3 of 4 section headings in
- * Figma use Rubik SemiBold, one ("A few things I've built.") uses Bold —
- * a minor, unflagged inconsistency; this component defaults to the
- * majority (SemiBold) rather than replicating the outlier.
- */
 interface Props {
   eyebrow: string;
   heading: string;
   id?: string;
-  /*
-   * Confirmed in Figma: homepage sections alternate white/beige (a real
-   * zebra pattern, not a mistake) — What-and-Where white, Testimonials
-   * beige, Featured Projects white. Hero (beige, its own component) isn't
-   * a Section instance. Default 'white' since it's the more common case.
-   */
+  // Homepage sections alternate white/beige by design — not a mistake.
   background?: 'white' | 'beige';
 }
 
@@ -37,6 +23,25 @@ const { eyebrow, heading, id, background = 'white' } = Astro.props;
 <style>
   .section {
     padding: 96px 16px;
+    /* scroll-margin-top = fixed header height + offset + gap (clears Header.astro) */
+    scroll-margin-top: 96px;
+  }
+
+  @media (max-width: 1024px) {
+    .section {
+      padding: 64px 16px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .section {
+      padding: 48px 16px;
+      scroll-margin-top: 128px;
+    }
+
+    .section__content {
+      gap: 28px;
+    }
   }
 
   .section--white {

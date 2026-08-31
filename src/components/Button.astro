@@ -1,16 +1,5 @@
 ---
-/*
- * Filled + outline button primitive. All 4 states (default/hover/focus/
- * active) match the Figma "Interactive States Reference" card (node
- * 274:60) exactly — see tokens.css for the source values.
- *
- * variant: 'filled' (primary CTA, e.g. "My resume", "Get in touch") or
- *   'outline' (secondary CTA, e.g. "View details").
- * size: 'small' (nav/card buttons, padding 8px 12px) or 'large' (Hero's
- *   "View projects"/"Get in touch", padding 12px 24px) — confirmed as two
- *   real distinct sizes in Figma, not a drift.
- * href: renders an <a>; omit to render a <button type="button">.
- */
+// href renders an <a>; omit it for a <button type="button">.
 interface Props {
   variant?: 'filled' | 'outline';
   size?: 'small' | 'large';
@@ -50,9 +39,7 @@ const Tag = href ? 'a' : 'button';
     transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
   }
 
-  /* Small outline (9px 16px, e.g. "View details") measures 1px/4px off
-     small filled (8px 12px, e.g. "My resume") in Figma — two distinct
-     components, not drift, so kept distinct rather than unified. */
+  /* padding differs by 1px/4px between variants — intentional, not drift. */
   .btn--filled.btn--small { padding: 8px 12px; }
   .btn--outline.btn--small { padding: 9px 16px; }
   .btn--large { padding: 12px 24px; }
@@ -71,14 +58,7 @@ const Tag = href ? 'a' : 'button';
     box-shadow: var(--shadow-btn-active);
   }
 
-  /*
-   * --btn-outline-color lets a caller tint the border/text (and hover
-   * fill) without a new variant — used by the case-study pages for their
-   * "Visit X" buttons, which are this same outline treatment but in each
-   * project's own accent color (confirmed in Figma: same padding/radius/
-   * no-shadow-at-rest as the ink-colored outline button, just a different
-   * border+text color). Pass e.g. `style="--btn-outline-color: var(--cs-accent)"`.
-   */
+  /* --btn-outline-color lets a caller tint border/text without a new variant. */
   .btn--outline {
     background: var(--color-surface);
     color: var(--btn-outline-color, var(--color-ink));

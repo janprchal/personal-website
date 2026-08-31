@@ -2,14 +2,8 @@
 import Link from './Link.astro';
 import Button from './Button.astro';
 
-/*
- * "Contact" was dropped (was → #contact, i.e. the Footer) — it isn't a
- * distinct destination, just the page's own natural end, and "Get in
- * touch" buttons already cover that intent throughout the page. "Skills"
- * and "Experience" were merged into one item — both pointed into the same
- * visual section ("What I worked with & where"), just at different scroll
- * depths. Both changes confirmed with the user 2026-08-19.
- */
+// "Contact" and separate "Experience" items were dropped — Footer's CTAs
+// already cover contact intent, and Experience is part of the Skills section.
 const navItems = [
   { label: 'Skills & Experience', href: '#skills' },
   { label: 'Projects', href: '#projects' },
@@ -25,15 +19,24 @@ const navItems = [
       <nav class="header__nav" aria-label="Primary">
         {navItems.map((item) => <Link href={item.href}>{item.label}</Link>)}
       </nav>
-      <Button variant="filled" href="/resume.pdf" target="_blank">My resume</Button>
+      <Button variant="filled" href="/cv">My resume</Button>
     </div>
   </div>
 </header>
 
+<script>
+  import { initNavScrollspy } from '../scripts/nav-scrollspy.js';
+  initNavScrollspy();
+</script>
+
 <style>
   .header {
-    position: sticky;
+    /* fixed, not sticky — sticky would be bounded by .hero-group's height
+       (see Hero.astro) and scroll away for good after the Hero section. */
+    position: fixed;
     top: 16px;
+    left: 0;
+    right: 0;
     z-index: 20;
     display: flex;
     justify-content: center;
@@ -66,5 +69,22 @@ const navItems = [
     display: flex;
     align-items: center;
     gap: 32px;
+  }
+
+  @media (max-width: 640px) {
+    .header__inner {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 12px;
+    }
+
+    /* order:3 + flex-basis:100% drops nav to its own row below logo/button. */
+    .header__nav {
+      order: 3;
+      flex-basis: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px 32px;
+    }
   }
 </style>

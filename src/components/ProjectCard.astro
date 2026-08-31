@@ -1,10 +1,4 @@
 ---
-/*
- * Featured project card (image + title/subtitle + description + tech tags
- * + "View details" button) — distinct from the smaller numbered project
- * index rows elsewhere on the homepage. `image` asset extraction from
- * Figma is a follow-up; this renders whatever src is passed.
- */
 import Card from './Card.astro';
 import Tag from './Tag.astro';
 import Button from './Button.astro';
@@ -64,13 +58,7 @@ const { title, subtitle, description, technologies, href, image, imageAlt, logo,
     padding: 28px 32px 32px;
   }
 
-  /*
-   * Extra breathing room above the CTA specifically — Figma's own
-   * itemSpacing is a uniform 16px between every child here, but the user
-   * asked for a bigger gap before the button specifically; matches the
-   * :global()-must-wrap-the-whole-selector gotcha since Button.astro is a
-   * child component (see CLAUDE.md Gotchas).
-   */
+  /* Extra gap above the CTA only — see PositionCard.astro for the :global() gotcha. */
   :global(.project-card__content > .btn) {
     margin-top: 8px;
   }

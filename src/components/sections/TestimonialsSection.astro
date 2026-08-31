@@ -78,4 +78,11 @@ import TestimonialCard from '../TestimonialCard.astro';
   .testimonials-cell--narrow {
     flex: 416;
   }
+
+  /* Fixed-ratio cells get unreadably narrow below ~640px — stack instead. */
+  @media (max-width: 640px) {
+    .testimonials-row {
+      flex-direction: column;
+    }
+  }
 </style>

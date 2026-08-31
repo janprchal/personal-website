@@ -1,12 +1,5 @@
 ---
-/*
- * Circular avatar with initials, used in Position/Testimonial card
- * attribution bands. `accent` cycles through the site's 3 brand colors
- * (see style.md) — text contrast is hardcoded per accent rather than
- * computed, matching a real bug fix from the design phase: initials must
- * NOT be hardcoded to ink color regardless of background (illegible on the
- * saturated blue). Blue -> white text; yellow/green -> dark ink text.
- */
+// Blue bg needs white text for contrast; yellow/green need dark ink.
 interface Props {
   initials: string;
   accent: 'yellow' | 'green' | 'blue';
